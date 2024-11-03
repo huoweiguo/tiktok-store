@@ -32,8 +32,10 @@
   width: 1200px;
   background-color: #fff;
   margin: 0 auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
-.catalog__item > div {
+
+.catalog__item>div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -42,19 +44,23 @@
   height: 90px;
   cursor: pointer;
 }
-.catalog__item > div b {
+
+.catalog__item>div b {
   font-size: 20px;
   color: #343434;
 }
-.catalog__item > div span {
+
+.catalog__item>div span {
   font-size: 14px;
   color: #9A9A9A;
 }
+
 .item__active {
   position: relative;
   background-color: #363741;
   border-radius: 15px;
 }
+
 .item__active::after {
   position: absolute;
   left: 50%;
@@ -65,7 +71,8 @@
   border-top: 10px solid #363741;
   transform: translate(-50%, 0);
 }
-.catalog__item > div.item__active b {
+
+.catalog__item>div.item__active b {
   color: #fff;
 }
 </style>
