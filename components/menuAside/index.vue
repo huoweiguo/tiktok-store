@@ -1,15 +1,32 @@
 <template>
   <div class="menu__container">
     <div class="menu__content">
-      <a class="menu__item active">实时榜单</a>
-      <a class="menu__item">精选好货</a>
-      <a class="menu__item">超级爆品</a>
-      <a class="menu__item">出单奖励</a>
-      <a class="menu__item">品牌优选</a>
-      <a class="menu__item">全部商品</a>
+      <a class="menu__item" :class="{ active: $route.name == 'index' }" href="/">实时榜单</a>
+      <a class="menu__item" :class="{ active: $route.name == 'sift' }" href="/sift">精选好货</a>
+      <a class="menu__item" :class="{ active: $route.name == 'explosive' }" href="/explosive">超级爆品</a>
+      <a class="menu__item" :class="{ active: $route.name == 'single' }" href="/single">出单奖励</a>
+      <a class="menu__item" :class="{ active: $route.name == 'brand' }" href="/brand">品牌优选</a>
+      <a class="menu__item" :class="{ active: $route.name == 'real' }" href="/real">全部商品</a>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+
+    }
+  },
+  mounted() {
+
+
+  },
+  methods: {
+
+  }
+}
+</script>
 
 <style scoped>
 .menu__container {

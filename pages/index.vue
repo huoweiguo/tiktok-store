@@ -1,28 +1,18 @@
 <template>
   <div class="home__container">
-    <!--tabbar-->
-    <tabbar />
-
-    <!--搜索-->
-    <searchItem />
-
-    <!--菜单-->
-    <menuAside />
-
     <!--榜单分类-->
     <div class="catalog__container">
-
       <div class="advert__swiper">
-        <swiper class="swiper gallery-thumbs" :options="swiperOptionThumbs" ref="swiperThumbs">
+        <swiper ref="swiperThumbs" class="swiper gallery-thumbs" :options="swiperOptionThumbs">
           <swiper-slide>
-            <img class="swiper__img" src="../assets/images/swiper-2.jpg" alt="">
+            <img class="swiper__img" src="../assets/images/swiper-2.jpg" alt="" />
           </swiper-slide>
           <swiper-slide>
-            <img class="swiper__img" src="../assets/images/swiper-3.jpg" alt="">
+            <img class="swiper__img" src="../assets/images/swiper-3.jpg" alt="" />
           </swiper-slide>
-          <div class="swiper-pagination" slot="pagination"></div>
-          <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
-          <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
+          <div slot="pagination" class="swiper-pagination"></div>
+          <div slot="button-next" class="swiper-button-next swiper-button-white"></div>
+          <div slot="button-prev" class="swiper-button-prev swiper-button-white"></div>
         </swiper>
       </div>
 
@@ -36,35 +26,31 @@
     <div class="goods__container__list">
       <goodsItem />
     </div>
-
-
-    <!--底部-->
-    <bottom />
   </div>
 </template>
 
 <script setup>
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
-import 'swiper/css/swiper.css'
-import { reactive } from 'vue'
+import { Swiper, SwiperSlide } from "vue-awesome-swiper";
+import "swiper/css/swiper.css";
+import { reactive } from "vue";
 
 const swiperOptionThumbs = reactive({
   loop: true,
   loopedSlides: 5, // looped slides should be the same
   spaceBetween: 10,
   centeredSlides: true,
-  slidesPerView: 'auto',
+  slidesPerView: "auto",
   touchRatio: 0.2,
   slideToClickedSlide: true,
   pagination: {
     el: ".swiper-pagination",
-    clickable: true
+    clickable: true,
   },
   navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev'
-  }
-})
+    nextEl: ".swiper-button-next",
+    prevEl: ".swiper-button-prev",
+  },
+});
 </script>
 
 <style scoped>
