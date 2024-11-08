@@ -1,3 +1,23 @@
 * {
   font: 400 14px / 1.6 'Helvetica Neue', Helvetica, "Microsoft YaHei", sans-serif, Arial, '宋体';
 }
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+input {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 3px 10px;
+}
+
+button{
+  border: 0;
+  padding: 3px 18px;
+  border-radius: 5px;
+  background: #6B64FE;
+  color: #fff;
+  font-size: 16px;
+}
