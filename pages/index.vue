@@ -3,16 +3,34 @@
     <!--榜单分类-->
     <div class="catalog__container">
       <div class="advert__swiper">
-        <swiper ref="swiperThumbs" class="swiper gallery-thumbs" :options="swiperOptionThumbs">
+        <swiper
+          ref="swiperThumbs"
+          class="swiper gallery-thumbs"
+          :options="swiperOptionThumbs"
+        >
           <swiper-slide>
-            <img class="swiper__img" src="../assets/images/swiper-2.jpg" alt="" />
+            <img
+              class="swiper__img"
+              src="../assets/images/swiper-2.jpg"
+              alt=""
+            />
           </swiper-slide>
           <swiper-slide>
-            <img class="swiper__img" src="../assets/images/swiper-3.jpg" alt="" />
+            <img
+              class="swiper__img"
+              src="../assets/images/swiper-3.jpg"
+              alt=""
+            />
           </swiper-slide>
           <div slot="pagination" class="swiper-pagination"></div>
-          <div slot="button-next" class="swiper-button-next swiper-button-white"></div>
-          <div slot="button-prev" class="swiper-button-prev swiper-button-white"></div>
+          <div
+            slot="button-next"
+            class="swiper-button-next swiper-button-white"
+          ></div>
+          <div
+            slot="button-prev"
+            class="swiper-button-prev swiper-button-white"
+          ></div>
         </swiper>
       </div>
 
