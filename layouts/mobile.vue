@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  data() {},
+  data() { },
   head() {
     return {
       meta: [
@@ -21,4 +21,9 @@ export default {
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less">
+body {
+  width: 100%;
+  min-width: 100%;
+}
+</style>
