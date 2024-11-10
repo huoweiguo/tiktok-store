@@ -1,23 +1,38 @@
 <template>
-    <div>
-        <!--tabbar-->
-        <tabbar />
+  <div>
+    <!--tabbar-->
+    <tabbar />
 
-        <!--搜索-->
-        <searchItem />
+    <!--搜索-->
+    <searchItem />
 
-        <!--菜单-->
-        <menuAside />
+    <!--菜单-->
+    <menuAside />
 
-        <nuxt />
+    <nuxt />
 
-        <!--底部-->
-        <bottom />
-    </div>
+    <!--底部-->
+    <bottom />
+  </div>
 </template>
 
-<script setup>
-
+<script>
+export default {
+  data() {},
+  head() {
+    return {
+      meta: [
+        {
+          name: "viewport",
+          content: "width=device-width, initial-scale=1.0",
+        },
+      ],
+    };
+  },
+};
 </script>
 
-<style lang='less' scoped></style>
+<style lang="less">
+@import url("~/assets/css/resets.css");
+@import url("~/assets/css/common.css");
+</style>
