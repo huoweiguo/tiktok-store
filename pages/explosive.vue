@@ -3,12 +3,12 @@
     <div class="header-box">
       <div class="container">
         <div class="title">超级爆品</div>
+        <div class="jxhh__desc">人工严选，精选好货，供你挑选。助您提升转化。</div>
       </div>
     </div>
     <div class="container center-box">
       <div class="list-top">
         <div><b>今日热卖</b></div>
-        <div>明日预告</div>
       </div>
       <div class="list-cen">
         <div class="left">
@@ -16,17 +16,14 @@
             <div class="box" v-for="item in 10" :key="item">
               <div class="l">
                 <img
-                  src="https://img14.360buyimg.com/pop/jfs/t1/226595/33/12379/162464/65e98437F2c3180eb/4b52ad900bb58550.jpg?imageMogr2/strip/format/jpg"
-                />
+                  src="https://img14.360buyimg.com/pop/jfs/t1/226595/33/12379/162464/65e98437F2c3180eb/4b52ad900bb58550.jpg?imageMogr2/strip/format/jpg" />
               </div>
               <div class="r">
                 <div class="title">
                   <a href="/detail/">
                     <i class="top">top</i>
-                    <span
-                      >【29.9包邮】小牛凯西 原味火山石小鲜肉烤肠1000g
-                      (20根)</span
-                    >
+                    <span>【29.9包邮】小牛凯西 原味火山石小鲜肉烤肠1000g
+                      (20根)</span>
                   </a>
                 </div>
                 <div class="desc">
@@ -40,6 +37,10 @@
                   <div class="pb">
                     <span>4399</span>
                     <div>查看次数</div>
+                  </div>
+                  <div class="pb">
+                    <span>1999</span>
+                    <div>点击次数</div>
                   </div>
                   <div class="pb">
                     <span>8%</span>
@@ -58,18 +59,14 @@
         <div class="right">
           <div class="rbox" v-for="i in 9" :key="i">
             <img
-              src="https://img14.360buyimg.com/pop/jfs/t1/246983/36/19767/134132/67122696F752582c1/e72ec1dd6fc71bfd.jpg?imageMogr2/strip/format/jpg"
-            />
+              src="https://img14.360buyimg.com/pop/jfs/t1/246983/36/19767/134132/67122696F752582c1/e72ec1dd6fc71bfd.jpg?imageMogr2/strip/format/jpg" />
             <div class="simg">
               <img
-                src="https://img14.360buyimg.com/pop/jfs/t1/246983/36/19767/134132/67122696F752582c1/e72ec1dd6fc71bfd.jpg?imageMogr2/strip/format/jpg"
-              />
+                src="https://img14.360buyimg.com/pop/jfs/t1/246983/36/19767/134132/67122696F752582c1/e72ec1dd6fc71bfd.jpg?imageMogr2/strip/format/jpg" />
               <img
-                src="https://img14.360buyimg.com/pop/jfs/t1/246983/36/19767/134132/67122696F752582c1/e72ec1dd6fc71bfd.jpg?imageMogr2/strip/format/jpg"
-              />
+                src="https://img14.360buyimg.com/pop/jfs/t1/246983/36/19767/134132/67122696F752582c1/e72ec1dd6fc71bfd.jpg?imageMogr2/strip/format/jpg" />
               <img
-                src="https://img14.360buyimg.com/pop/jfs/t1/246983/36/19767/134132/67122696F752582c1/e72ec1dd6fc71bfd.jpg?imageMogr2/strip/format/jpg"
-              />
+                src="https://img14.360buyimg.com/pop/jfs/t1/246983/36/19767/134132/67122696F752582c1/e72ec1dd6fc71bfd.jpg?imageMogr2/strip/format/jpg" />
             </div>
           </div>
         </div>
@@ -83,26 +80,29 @@
 <style lang="less" scoped>
 .header-box {
   // 背景渐变
-  background: linear-gradient(to bottom, #fb5151, #ff7e6f);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 30px 0 280px;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 0 0 100% 100%;
+  min-height: 382px;
+  padding-top: 30px;
+  background: url(/_nuxt/assets/images/center-bg.png) no-repeat;
+  margin-bottom: 30px;
 
   .title {
-    font-size: 30px;
+    font-size: 36px;
     text-align: center;
     line-height: 3;
+    color: #fff;
+  }
+
+  .jxhh__desc {
+    font-size: 24px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
   }
 }
 
 .center-box {
   background: #fff;
   border-radius: 20px;
-  margin-top: -260px;
+  margin-top: -200px;
   padding: 15px;
 }
 
@@ -111,11 +111,12 @@
   font-size: 30px;
   margin-bottom: 20px;
   border-bottom: 1px solid #f0f0f0;
+
   div {
     flex: 1;
-    text-align: center;
     font-size: 22px;
     line-height: 3;
+
     b {
       font-size: 22px;
       font-weight: bold;
@@ -125,13 +126,16 @@
     }
   }
 }
+
 .list-cen {
   display: flex;
+
   .left {
     flex: 1;
     padding-right: 15px;
     border-right: 1px solid #f0f0f0;
   }
+
   .right {
     padding-left: 15px;
     width: 236px;
@@ -140,15 +144,18 @@
 
 .rbox {
   margin-bottom: 30px;
+
   img {
     display: block;
     width: 100%;
   }
+
   .simg {
     display: flex;
     justify-content: space-between;
     gap: 10px;
     margin: 10px 0;
+
     img {
       flex: 1;
       width: 30%;
@@ -204,10 +211,12 @@
           background: #f9362d;
           background-image: linear-gradient(#f9362d, #fe6b18);
         }
+
         a {
           display: flex;
           align-items: flex-start;
           color: #333;
+
           span {
             font-size: 18px;
           }
@@ -223,13 +232,13 @@
       .price {
         display: flex;
         align-items: center;
-        justify-content: space-between;
         margin-bottom: 20px;
 
         .pb {
           font-size: 16px;
           color: #999;
           text-align: center;
+          margin: 0 20px;
 
           span {
             font-size: 22px;

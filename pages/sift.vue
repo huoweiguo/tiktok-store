@@ -3,6 +3,7 @@
     <div class="header-box">
       <div class="container">
         <div class="title">精选好货</div>
+        <div class="jxhh__desc">人工严选，精选好货，供你挑选。助您提升转化。</div>
         <div class="types-box">
           <div class="line between">
             <a class="active" href="##">全部</a>
@@ -23,12 +24,12 @@
             <a href="##">箱包</a>
             <a href="##">户外运动</a>
           </div>
-          <div class="line screen">
+          <!-- <div class="line screen">
             <div>￥<input type="text"></div>
             <div>￥<input type="text"></div>
             <div>佣金比例<input type="text">￥</div>
             <button>筛选</button>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -99,32 +100,35 @@
 <style lang='less' scoped>
 .header-box {
   // 背景渐变
-  background: linear-gradient(to bottom, #fb5151, #ff7e6f);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 30px 0 100px;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 0 0 100% 100%;
+  min-height: 382px;
+  padding-top: 30px;
+  background: url(/_nuxt/assets/images/center-bg.png) no-repeat;
+  margin-bottom: 30px;
 
   .title {
-    font-size: 30px;
+    font-size: 36px;
     text-align: center;
     line-height: 3;
+    color: #fff;
   }
 
+  .jxhh__desc {
+    font-size: 24px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+  }
 }
 
 .types-box {
-  background: #fff;
-  border-radius: 20px;
-  padding: 20px;
+  width: 1200px;
+  margin: 30px auto 0;
+  padding: 15px 10px;
+  background-color: rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
 
   .line {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
     color: #333;
 
     &.between {
@@ -140,14 +144,15 @@
     }
 
     a {
-      color: #333;
-      font-size: 14px;
+      margin: 0 5px;
       padding: 3px 10px;
-      border-radius: 5px;
+      color: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
 
       &.active {
-        color: #fff;
-        background: #fb5151;
+        background-color: #fff;
+        color: rgba(0, 0, 0, 0.5);
+        border-radius: 15px;
       }
     }
 
@@ -158,7 +163,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  margin-top: -60px;
+  margin-top: -120px;
   margin-bottom: 50px;
 
   .box {

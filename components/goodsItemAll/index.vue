@@ -1,13 +1,17 @@
 <template>
   <div class="goods__container">
-    <div v-for="(item, index) in list" :key="item.id" class="goods__container__item">
-      <span class="goods__tag">{{ index + 1 }}</span>
+    <div v-for="item in list" :key="item.id" class="goods__container__item">
+      <!-- <span class="goods__tag">{{ index + 1 }}</span> -->
       <img class="goods__image" :src="item.imgUrl" />
       <div class="goods__hits">
         <span><img style="height: 16px" src="../../assets/images/eye__icon.svg" /><b>{{ item.preview }}</b></span>
         <span><img style="height: 20px" src="../../assets/images/click__icon.svg" /><b>{{ item.hits }}</b></span>
       </div>
       <div class="goods__name">{{ item.name }}</div>
+      <div class="shop__address">
+        <img style="height: 16px" src="../../assets/images/mall-f.svg" /> <span>{{ '酒路网卖场店酒路网卖场店酒路网卖场店'.length > 10 ?
+          '酒路网卖场店酒路网卖场店酒路网卖场店'.slice(0, 10) + '...' : '酒路网卖场店' }}</span>
+      </div>
       <div class="goods__item__tag">
         <div>
           <b>{{ item.price }}</b><span>到手价</span>
@@ -96,7 +100,7 @@ const list = ref([
 ]);
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .goods__container {
   overflow: hidden;
   display: flex;
@@ -147,14 +151,9 @@ const list = ref([
   height: 230px;
 }
 
-.goods__image {
-  width: 227px;
-  height: 230px;
-}
-
 .goods__hits {
   display: flex;
-  padding: 10px 15px;
+  padding: 10px 15px 0;
   justify-content: space-between;
   color: #666;
   font-size: 14px;
@@ -184,7 +183,19 @@ const list = ref([
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  line-height: 30px;
   font-weight: bold;
+}
+
+.shop__address {
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  color: #666;
+
+  img {
+    margin-right: 5px;
+  }
 }
 
 .goods__item__tag {

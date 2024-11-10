@@ -27,7 +27,7 @@
     </div>
     <div class="container">
       <div class="list-box">
-        <goodsItem />
+        <goodsItemAll />
       </div>
 
       <div class="page-box">
@@ -58,14 +58,10 @@
 <style lang="less" scoped>
 .header-box {
   // 背景渐变
-  background: linear-gradient(to bottom, #fb5151, #ff7e6f);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 30px 0 100px;
-  color: #fff;
-  font-size: 16px;
-  border-radius: 0 0 100% 100%;
+  min-height: 382px;
+  padding-top: 30px;
+  background: url(/_nuxt/assets/images/center-bg.png) no-repeat;
+  margin-bottom: 30px;
 
   .title {
     font-size: 30px;
@@ -81,10 +77,11 @@
 }
 
 .types-box {
-  background: #fff;
-  border-radius: 20px;
-  padding: 20px;
-  margin-top: 20px;
+  width: 1200px;
+  margin: 30px auto 0;
+  padding: 15px 10px;
+  background-color: rgba(0, 0, 0, 0.35);
+  border-radius: 10px;
 
   .line {
     display: flex;
@@ -96,14 +93,15 @@
     }
 
     a {
-      color: #333;
-      font-size: 14px;
+      margin: 0 5px;
       padding: 3px 10px;
-      border-radius: 5px;
+      color: rgba(255, 255, 255, 0.6);
+      cursor: pointer;
 
       &.active {
-        color: #fff;
-        background: #fb5151;
+        background-color: #fff;
+        color: rgba(0, 0, 0, 0.5);
+        border-radius: 15px;
       }
     }
   }
@@ -113,7 +111,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  margin-top: -60px;
+  margin-top: -240px;
   margin-bottom: 50px;
 }
 

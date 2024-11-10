@@ -45,7 +45,6 @@ export default {
 }
 
 .menu__item {
-  margin-right: 25px;
   color: rgba(255, 255, 255, 0.6);
   font-size: 16px;
   cursor: pointer;

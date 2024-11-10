@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: "tiketuoke",
+    title: "替客拓客",
     htmlAttrs: {
       lang: "en",
     },
