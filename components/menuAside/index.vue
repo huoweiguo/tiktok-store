@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   data() {
     return {
@@ -23,15 +22,11 @@ export default {
   },
   methods: {
     getData() {
-      axios({
-        url: '/api/cargoMenu/page',
-        method: 'post',
-        data: {
+      this.$axios.$post('/api/cargoMenu/page',{
           name: '',
           pageNum: 1,
           pageSize: -1
-        }
-      }).then(res => {
+        }).then(res => {
         if (res.code === 200) {
           this.menuList = res.rows || []
         }
