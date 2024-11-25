@@ -1,62 +1,54 @@
 <template>
-  <main>
-    <div class="banner"></div>
+  <div>
+    <div class="header-box">
+      <div class="container">
+        <div class="title">{{ menuInfo.textHead }}</div>
+        <div class="jxhh__desc">{{ menuInfo.textDesc }}</div>
+      </div>
+    </div>
     <div class="container">
       <div class="list-box">
-        <div v-for="item in 10" :key="item" class="box-main">
+        <div v-for="item in goodsList" :key="item.id" class="box-main">
           <div class="box">
             <div class="l">
-              <img
-                src="https://img14.360buyimg.com/pop/jfs/t1/226595/33/12379/162464/65e98437F2c3180eb/4b52ad900bb58550.jpg?imageMogr2/strip/format/jpg"
-              />
+              <img :src="item.fileList[0].fileUrl" />
             </div>
             <div class="r">
               <div class="title">
                 <a href="/detail/">
-                  <img
-                    src="https://www.jingtuitui.com/static/home_v3/images/pic/20/01.jpg"
-                  />
-                  <span
-                    >【29.9包邮】小牛凯西 原味火山石小鲜肉烤肠1000g (20根)</span
-                  >
+                  <span>{{ item.name }}</span>
                 </a>
               </div>
               <div class="price">
                 <div class="pb">
-                  <b>43.9</b>
+                  <b>{{ item.price.toFixed(2) }}</b>
                   <div>到手价</div>
                 </div>
                 <div class="pb">
-                  <span>8%</span>
-                  <div>佣金比</div>
-                </div>
-                <div class="pb">
-                  <span>4399</span>
+                  <span>{{ item.brokerage.toFixed(2) }}</span>
                   <div>佣金</div>
                 </div>
+                <div class="pb">
+                  <span>{{item.brokerageRatio}}%</span>
+                  <div>佣金比</div>
+                </div>
               </div>
-              <div class="progress">
-                <div class="bar" :style="{ width: `${100}px` }"></div>
-              </div>
+
               <div class="statistic">
-                <div>点击量：<span>4399</span></div>
-                <div>浏览量：<span>4399</span></div>
+                <div><img style="height: 16px" src="../assets/images/eye__icon.svg" /><span>{{item.readCount}}</span></div>
+                <div><img style="height: 20px" src="../assets/images/click__icon.svg" /><span>{{ item.clickCount }}</span></div>
+              </div>
+
+              <div class="btn-box">
+                <div class="btn">
+                  <a @click="goLink(item.id)">查看详情</a>
+                </div>
               </div>
             </div>
           </div>
           <div class="shop">
-            <div class="name">
-              <a href="#">
-                <img
-                  src="https://img14.360buyimg.com/pop/jfs/t1/226595/33/12379/162464/65e98437F2c3180eb/4b52ad900bb58550.jpg?imageMogr2/strip/format/jpg"
-                />
-                <span>小牛凯西</span>
-              </a>
-            </div>
             <div class="tabs">
-              <img
-                src="https://www.jingtuitui.com/static/home_v3/images/icon/brand_tag.png"
-              /><span>奥克斯精品厨电旗舰店</span>
+              <img src="../assets/images/brand_tag.png" /><span>{{ item.shopName }}</span>
             </div>
           </div>
         </div>
@@ -82,36 +74,93 @@
         </div>
       </div>
     </div>
-  </main>
+  </div>
 </template>
 
 <script>
+import { EventBus } from '@/utils/event-bus'
 export default {
-  components: {},
-  data() {
-    return {};
+  data () {
+    return {
+      params: {
+        param: '',
+        featrue: 3,
+        type: '',
+        pageNum: 1,
+        pageSize: 20
+      },
+      menuInfo: {},
+      currentIndex: '',
+      goodsList: []
+    }
   },
-  computed: {},
-  watch: {},
-  created() {},
-  mounted() {},
-  // 方法集合
-  methods: {},
-};
+  methods: {
+    getGoodsList () {
+      this.$axios.post('/api/cargo/info/page',{
+        ...this.params
+      }).then(res => {
+        if (res.data.code === 200) {
+          this.goodsList = res.data.rows || []
+        }
+      })
+    },
+
+    goLink (id) {
+      this.$router.push(`/detail/${id}`)
+    },
+
+    getMenuInfo() {
+      this.$axios.$post('/api/cargoMenu/page',{
+          menuKey: '3',
+          pageNum: 1,
+          pageSize: -1
+        }).then(res => {
+        if (res.code === 200) {
+          this.menuInfo = res.rows[0] || {}
+        }
+      })
+    }
+  },
+  mounted () {
+    this.getMenuInfo()
+    this.getGoodsList()
+    EventBus.$on('searchGoods', data => {
+      this.params.param = data.param !== undefined ? data.param : this.params.param
+      this.params.type = data.type !== undefined ? data.type : this.params.type
+      this.params.salesType = data.salesType !== undefined ? data.salesType : this.params.salesType
+
+      this.getGoodsList()
+    })
+  }
+}
 </script>
 <style lang="less" scoped>
-.banner {
-  height: 530px;
-  background-image: url("https://www.jingtuitui.com/static/home_v3/images/icon/brand_banner_bj.png");
-  background-repeat: no-repeat;
-  background-position: center top;
+.header-box {
+  // 背景渐变
+  min-height: 382px;
+  padding-top: 30px;
+  background: url(/_nuxt/assets/images/center-bg.png) no-repeat;
+  margin-bottom: 30px;
+
+  .title {
+    font-size: 36px;
+    text-align: center;
+    line-height: 3;
+    color: #fff;
+  }
+
+  .jxhh__desc {
+    font-size: 24px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+  }
 }
 .list-box {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  margin-top: -300px;
-  margin-bottom: 50px;
+  margin-top: -200px;
+  margin-bottom: 30px;
 
   .box-main {
     width: calc(50% - 10px);
@@ -131,8 +180,8 @@ export default {
     }
 
     .l {
-      width: 246px;
-      height: 246px;
+      width: 220px;
+      height: 220px;
       border-radius: 20px;
       overflow: hidden;
 
@@ -147,8 +196,8 @@ export default {
       flex: 1;
 
       .title {
-        margin-bottom: 50px;
-
+        margin-bottom: 30px;
+        font-size: 16px;
         a {
           display: flex;
           align-items: flex-start;
@@ -165,18 +214,18 @@ export default {
         padding: 10px;
 
         .pb {
-          font-size: 12px;
+          font-size: 14px;
           color: #999;
           text-align: center;
 
           span {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             color: #333;
           }
 
           b {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             color: #333;
           }
@@ -202,8 +251,13 @@ export default {
       }
       .statistic {
         display: flex;
-        justify-content: space-between;
-        margin-top: 20px;
+        align-items: center;
+        margin: 20px 0;
+        & > div {
+          display: flex;
+          align-items: center;
+          margin-right: 20px;
+        }
       }
 
       .btn {
@@ -215,6 +269,7 @@ export default {
           background: #f00;
           color: #fff;
           border-radius: 20px;
+          cursor: pointer;
         }
       }
     }

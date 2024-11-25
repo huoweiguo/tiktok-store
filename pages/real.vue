@@ -4,30 +4,14 @@
       <div class="container">
         <div class="types-box">
           <div class="line between">
-            <a class="active" href="##">全部</a>
-            <a href="##">居家日用</a>
-            <a href="##">食品</a>
-            <a href="##">生鲜</a>
-            <a href="##">图书</a>
-            <a href="##">美妆个护</a>
-            <a href="##">母婴</a>
-            <a href="##">数码家电</a>
-            <a href="##">内衣</a>
-            <a href="##">配饰</a>
-            <a href="##">女装</a>
-            <a href="##">男装</a>
-            <a href="##">鞋品</a>
-            <a href="##">家装家纺</a>
-            <a href="##">文娱车品</a>
-            <a href="##">箱包</a>
-            <a href="##">户外运动</a>
+            <a v-for="item in classifyList" :key="item.id" :class="{ active: item.id === currentIndex }" @click="handleChange(item.id)">{{ item.name }}</a>
           </div>
         </div>
       </div>
     </div>
     <div class="container">
       <div class="list-box">
-        <goodsItemAll />
+        <goodsItemAll :list="goodsList"/>
       </div>
 
       <div class="page-box">
@@ -53,7 +37,71 @@
   </div>
 </template>
 
-<script setup></script>
+<script>
+import { EventBus } from '@/utils/event-bus'
+export default {
+  data () {
+    return {
+      params: {
+        param: '',
+        featrue: -1,
+        type: '',
+        pageNum: 1,
+        pageSize: 20
+      },
+      currentIndex: '',
+      goodsList: [],
+      classifyList: [],
+    }
+  },
+
+  methods: {
+    getClassifyList () {
+      this.$axios.post('/api/CargoType/page', {
+        enableFlag: 1,
+        pageNum: 1,
+        pageSize: -1
+      }).then(res => {
+        if (res.data.code === 200) {
+          if (res.data.rows.length > 0) {
+            this.classifyList = [{ id: '', name: '全部' }, ...res.data.rows]
+          } else {
+            this.classifyList = [{ id: '', name: '全部' }]
+          }
+        }
+      })
+    },
+
+    getGoodsList () {
+      this.$axios.post('/api/cargo/info/page',{
+        ...this.params
+      }).then(res => {
+        if (res.data.code === 200) {
+          this.goodsList = res.data.rows || []
+        }
+      })
+    },
+
+    handleChange (id) {
+      this.currentIndex = id
+      this.params.type = id
+      this.getGoodsList()
+    }
+  },
+
+  mounted () {
+    this.getClassifyList()
+    this.getGoodsList()
+    EventBus.$on('searchGoods', data => {
+      this.params.param = data.param !== undefined ? data.param : this.params.param
+      this.params.type = data.type !== undefined ? data.type : this.params.type
+      this.params.salesType = data.salesType !== undefined ? data.salesType : this.params.salesType
+
+      this.getGoodsList()
+    })
+  }
+}
+</script>
 
 <style lang="less" scoped>
 .header-box {
@@ -87,10 +135,6 @@
     display: flex;
     align-items: center;
     color: #333;
-
-    &.between {
-      justify-content: space-between;
-    }
 
     a {
       margin: 0 5px;

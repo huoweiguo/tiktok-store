@@ -18,3 +18,26 @@ button{
   color: #fff;
   font-size: 16px;
 }
+.goods__hits {
+  display: flex;
+  padding: 10px 15px;
+  justify-content: space-between;
+  color: #666;
+  font-size: 14px;
+}
+
+.goods__hits span {
+  display: flex;
+  align-items: center;
+  color: #999;
+}
+
+.goods__hits span img {
+  margin-right: 5px;
+}
+
+.goods__hits span b {
+  font-size: 14px;
+  text-align: center;
+  color: #999;
+}

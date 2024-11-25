@@ -2,54 +2,57 @@
   <div>
     <div class="header-box">
       <div class="container">
-        <div class="title">超级爆品</div>
-        <div class="jxhh__desc">人工严选，精选好货，供你挑选。助您提升转化。</div>
+        <div class="title">{{ menuInfo.textHead }}</div>
+        <div class="jxhh__desc">{{ menuInfo.textDesc }}</div>
       </div>
     </div>
     <div class="container center-box">
       <div class="list-top">
-        <div><b>今日热卖</b></div>
+        <div><b>{{ menuInfo.activityName }}</b></div>
       </div>
       <div class="list-cen">
         <div class="left">
           <div class="list-box">
-            <div class="box" v-for="item in 10" :key="item">
+            <div class="box" v-for="item in goodsList" :key="item.id">
               <div class="l">
-                <img
-                  src="https://img14.360buyimg.com/pop/jfs/t1/226595/33/12379/162464/65e98437F2c3180eb/4b52ad900bb58550.jpg?imageMogr2/strip/format/jpg" />
+                <img :src="item.fileList[0].fileUrl" />
               </div>
               <div class="r">
                 <div class="title">
-                  <a href="/detail/">
+                  <a @click="goLink(item.id)">
                     <i class="top">top</i>
-                    <span>【29.9包邮】小牛凯西 原味火山石小鲜肉烤肠1000g
-                      (20根)</span>
+                    <span>{{ item.name }}</span>
                   </a>
                 </div>
-                <div class="desc">
+                <!-- <div class="desc">
                   *肉含量≥90%，肉感十足，醇香四溢，经典老味道，自留送礼都很赞👍
-                </div>
+                </div> -->
                 <div class="price">
                   <div class="pb">
-                    <b>43.9</b>
+                    <b>{{ item.price.toFixed(2) }}</b>
                     <div>到手价</div>
                   </div>
                   <div class="pb">
-                    <span>4399</span>
-                    <div>查看次数</div>
+                    <span>{{ item.brokerage.toFixed(2) }}</span>
+                    <div>佣金</div>
                   </div>
                   <div class="pb">
-                    <span>1999</span>
-                    <div>点击次数</div>
-                  </div>
-                  <div class="pb">
-                    <span>8%</span>
+                    <span>{{ item.brokerageRatio }}%</span>
                     <div>佣金比</div>
                   </div>
+                  <div class="pb">
+                    <span>{{ item.readCount }}</span>
+                    <div>浏览量</div>
+                  </div>
+                  <div class="pb">
+                    <span>{{ item.clickCount }}</span>
+                    <div>点击量</div>
+                  </div>
                 </div>
+                <div class="shop__name">店铺：{{ item.shopName }}</div>
                 <div class="btn-box">
                   <div class="btn">
-                    <a href="/detail/">查看详情</a>
+                    <a @click="goLink(item.id)">查看详情</a>
                   </div>
                 </div>
               </div>
@@ -57,17 +60,8 @@
           </div>
         </div>
         <div class="right">
-          <div class="rbox" v-for="i in 9" :key="i">
-            <img
-              src="https://img14.360buyimg.com/pop/jfs/t1/246983/36/19767/134132/67122696F752582c1/e72ec1dd6fc71bfd.jpg?imageMogr2/strip/format/jpg" />
-            <div class="simg">
-              <img
-                src="https://img14.360buyimg.com/pop/jfs/t1/246983/36/19767/134132/67122696F752582c1/e72ec1dd6fc71bfd.jpg?imageMogr2/strip/format/jpg" />
-              <img
-                src="https://img14.360buyimg.com/pop/jfs/t1/246983/36/19767/134132/67122696F752582c1/e72ec1dd6fc71bfd.jpg?imageMogr2/strip/format/jpg" />
-              <img
-                src="https://img14.360buyimg.com/pop/jfs/t1/246983/36/19767/134132/67122696F752582c1/e72ec1dd6fc71bfd.jpg?imageMogr2/strip/format/jpg" />
-            </div>
+          <div class="rbox" v-for="item in advList" :key="item.id">
+            <img :src="item.advertisingUrl" @click="toRouter(item)"/>
           </div>
         </div>
       </div>
@@ -75,7 +69,90 @@
   </div>
 </template>
 
-<script setup></script>
+<script>
+import { EventBus } from '@/utils/event-bus'
+import { routerType } from '@/utils/tools'
+export default {
+  data () {
+    return {
+      menuInfo: {},
+      goodsList: [],
+      advList: [],
+      params: {
+        param: '',
+        featrue: 2,
+        type: '',
+        pageNum: 1,
+        pageSize: 20
+      },
+    }
+  },
+
+  methods: {
+    getGoodsList () {
+      this.$axios.post('/api/cargo/info/page',{
+        ...this.params
+      }).then(res => {
+        if (res.data.code === 200) {
+          this.goodsList = res.data.rows || []
+        }
+      })
+    },
+
+    getMenuInfo() {
+      this.$axios.$post('/api/cargoMenu/page',{
+          menuKey: '2',
+          pageNum: 1,
+          pageSize: -1
+        }).then(res => {
+        if (res.code === 200) {
+          this.menuInfo = res.rows[0] || {}
+        }
+      })
+    },
+
+    goLink (id) {
+      this.$router.push(`/detail/${id}`)
+    },
+
+    getAdvert () {
+      this.$axios.$post('/api/CargoAdvertising/page', {
+        advertisingFlag: 0,
+        pageNum: 1,
+        pageSize: -1
+      }).then(res => {
+        if (res.code === 200) {
+          this.advList = res.rows || []
+        }
+      })
+    },
+
+    toRouter (obj) {
+      const { advertisingType, advertisingAddr } = obj
+      if (advertisingType === 0) {
+        // 菜单
+        this.$router.push(routerType[advertisingAddr])
+      } else {
+        // 商品详情
+        this.$router.push(`/detail/${advertisingAddr}`)
+      }
+    }
+  },
+
+  mounted () {
+    this.getGoodsList()
+    this.getMenuInfo()
+    this.getAdvert()
+    EventBus.$on('searchGoods', data => {
+      this.params.param = data.param !== undefined ? data.param : this.params.param
+      this.params.type = data.type !== undefined ? data.type : this.params.type
+      this.params.salesType = data.salesType !== undefined ? data.salesType : this.params.salesType
+
+      this.getGoodsList()
+    })
+  }
+}
+</script>
 
 <style lang="less" scoped>
 .header-box {
@@ -104,6 +181,12 @@
   border-radius: 20px;
   margin-top: -200px;
   padding: 15px;
+}
+
+.shop__name {
+  font-size: 14px;
+  color: #aaa;
+  margin: 20px;
 }
 
 .list-top {
@@ -148,6 +231,7 @@
   img {
     display: block;
     width: 100%;
+    cursor: pointer;
   }
 
   .simg {
@@ -181,8 +265,8 @@
     }
 
     .l {
-      width: 246px;
-      height: 246px;
+      width: 200px;
+      height: 200px;
       border-radius: 20px;
       overflow: hidden;
 
@@ -197,6 +281,7 @@
       flex: 1;
 
       .title {
+        margin-bottom: 20px;
         .top {
           display: inline-block;
           vertical-align: middle;
@@ -216,7 +301,7 @@
           display: flex;
           align-items: flex-start;
           color: #333;
-
+          cursor: pointer;
           span {
             font-size: 18px;
           }
@@ -231,6 +316,7 @@
 
       .price {
         display: flex;
+        justify-content: space-between;
         align-items: center;
         margin-bottom: 20px;
 
@@ -262,6 +348,7 @@
           background: #f00;
           color: #fff;
           border-radius: 20px;
+          cursor: pointer;
         }
       }
     }

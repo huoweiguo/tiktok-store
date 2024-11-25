@@ -3,27 +3,23 @@
     <div class="container bg">
       <div class="goods-box">
         <div class="goods-img">
-          <img
-            src="http://img14.360buyimg.com/pop/jfs/t1/178931/29/46481/55192/666ba63dF77536b63/71c77e003ea1a9b3.jpg" />
+          <img :src="goodsInfo.fileList[0].fileUrl" />
         </div>
         <div class="goods-info">
-          <div class="name">
-            伍尚ABS强光手电筒led户外USB充电家用便携18650迷你小手
-            WS-66数显手电筒+Type-C线（1个装）
-          </div>
+          <div class="name">{{ goodsInfo.name}}</div>
           <div class="info-box">
-            <div class="top">查看人数 <span>100</span></div>
+            <div class="top">查看人数 <span>{{ goodsInfo.clickCount }}</span></div>
             <div class="price">
               <div>
-                <b>&yen;32.9</b><span>价格：<s>&yen;69.9</s></span>
+                <b>&yen;{{ goodsInfo.price?.toFixed(2) }}</b>
                 <div>到手价</div>
               </div>
               <div>
-                <b>40%</b><span>预估佣金：&yen;69.9</span>
+                <b>{{ goodsInfo.brokerageRatio }}%</b>
                 <div>佣金比例</div>
               </div>
               <div>
-                <b>6.80</b><span>预估佣金：&yen;6.50</span>
+                <b>{{ goodsInfo.brokerage?.toFixed(2) }}</b>
                 <div>佣金</div>
               </div>
             </div>
@@ -31,12 +27,11 @@
 
           <div class="btns">
             <button>复制文案</button>
-            <button>查看详情</button>
           </div>
         </div>
       </div>
     </div>
-    <div class="container bg wenan-box">
+    <!-- <div class="container bg wenan-box">
       <div class="title">
         <img src="https://www.jingtuitui.com/static/home_v3/images/icon/th_icon.png" />
         <span>营销文案</span>
@@ -103,8 +98,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="container">
+    </div> -->
+    <!-- <div class="container">
       <div class="jingpin-box">
         <div class="title">
           <b>精品推荐</b>
@@ -114,11 +109,35 @@
           <goodsItem />
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
-<script></script>
+<script>
+export default {
+  data () {
+    return {
+      goodsInfo: {}
+    }
+  },
+
+  methods: {
+    getGoodsDetail () {
+      const { id } = this.$route.params
+      this.$axios.$get(`/api/cargo/info/detail?id=${id}`).then(res => {
+        console.log(res)
+        if (res.code === 200) {
+          this.goodsInfo = res.data || {}
+        }
+      })
+    }
+  },
+
+  mounted () {
+    this.getGoodsDetail()
+  }
+}
+</script>
 <style lang="less" scoped>
 .page {
   background: #f6f6f6;
@@ -137,9 +156,11 @@
   padding: 30px;
 
   .goods-img {
+    display: flex;
     width: 400px;
     height: 400px;
-
+    justify-content: center;
+    align-items: center;
     img {
       display: block;
       max-width: 100%;

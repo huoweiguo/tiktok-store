@@ -2,27 +2,11 @@
   <div>
     <div class="header-box">
       <div class="container">
-        <div class="title">精选好货</div>
-        <div class="jxhh__desc">人工严选，精选好货，供你挑选。助您提升转化。</div>
+        <div class="title">{{ menuInfo.textHead }}</div>
+        <div class="jxhh__desc">{{ menuInfo.textDesc }}</div>
         <div class="types-box">
           <div class="line between">
-            <a class="active" href="##">全部</a>
-            <a href="##">居家日用</a>
-            <a href="##">食品</a>
-            <a href="##">生鲜</a>
-            <a href="##">图书</a>
-            <a href="##">美妆个护</a>
-            <a href="##">母婴</a>
-            <a href="##">数码家电</a>
-            <a href="##">内衣</a>
-            <a href="##">配饰</a>
-            <a href="##">女装</a>
-            <a href="##">男装</a>
-            <a href="##">鞋品</a>
-            <a href="##">家装家纺</a>
-            <a href="##">文娱车品</a>
-            <a href="##">箱包</a>
-            <a href="##">户外运动</a>
+            <a v-for="item in classifyList" :key="item.id" :class="{ active: item.id === currentIndex }" @click="handleChange(item.id)">{{ item.name }}</a>
           </div>
           <!-- <div class="line screen">
             <div>￥<input type="text"></div>
@@ -35,35 +19,37 @@
     </div>
     <div class="container">
       <div class="list-box">
-        <div class="box" v-for="item in 10" :key="item">
+        <div class="box" v-for="item in goodsList" :key="item.id">
           <div class="l">
-            <img
-              src="https://img14.360buyimg.com/pop/jfs/t1/226595/33/12379/162464/65e98437F2c3180eb/4b52ad900bb58550.jpg?imageMogr2/strip/format/jpg" />
+            <img :src="item.fileList[0].fileUrl" />
           </div>
           <div class="r">
             <div class="title">
-              <a href="/detail/">
-                <img src="https://www.jingtuitui.com/static/home_v3/images/pic/20/01.jpg" />
-                <span>【29.9包邮】小牛凯西 原味火山石小鲜肉烤肠1000g (20根)</span>
+              <a @click="goLink(item.id)">
+                <span>{{ item.name }}</span>
               </a>
             </div>
             <div class="price">
               <div class="pb">
-                <b>43.9</b>
+                <b>{{ item.price.toFixed(2) }}</b>
                 <div>到手价</div>
               </div>
               <div class="pb">
-                <span>4399</span>
-                <div>查看次数</div>
+                <span>{{ item.brokerage }}</span>
+                <div>佣金</div>
               </div>
               <div class="pb">
-                <span>8%</span>
+                <span>{{ item.brokerageRatio }}%</span>
                 <div>佣金比</div>
               </div>
             </div>
+            <div class="goods__hits">
+              <span><img style="height: 16px" src="../assets/images/eye__icon.svg" /><b>{{ item.readCount }}</b></span>
+              <span><img style="height: 20px" src="../assets/images/click__icon.svg" /><b>{{ item.clickCount }}</b></span>
+            </div>
             <div class="btn-box">
               <div class="btn">
-                <a href="/detail/">查看详情</a>
+                <a @click="goLink(item.id)">查看详情</a>
               </div>
             </div>
           </div>
@@ -93,8 +79,89 @@
   </div>
 </template>
 
-<script setup>
+<script>
+import { EventBus } from '@/utils/event-bus'
+export default {
+  data () {
+    return {
+      params: {
+        param: '',
+        featrue: 1,
+        type: '',
+        pageNum: 1,
+        pageSize: 20
+      },
+      menuInfo: {},
+      currentIndex: '',
+      goodsList: [],
+      classifyList: [],
+    }
+  },
 
+  methods: {
+    getClassifyList () {
+      this.$axios.post('/api/CargoType/page', {
+        enableFlag: 1,
+        pageNum: 1,
+        pageSize: -1
+      }).then(res => {
+        if (res.data.code === 200) {
+          if (res.data.rows.length > 0) {
+            this.classifyList = [{ id: '', name: '全部' }, ...res.data.rows]
+          } else {
+            this.classifyList = [{ id: '', name: '全部' }]
+          }
+        }
+      })
+    },
+
+    goLink (id) {
+      this.$router.push(`/detail/${id}`)
+    },
+
+    getGoodsList () {
+      this.$axios.post('/api/cargo/info/page',{
+        ...this.params
+      }).then(res => {
+        if (res.data.code === 200) {
+          this.goodsList = res.data.rows || []
+          console.log(this.goodsList, 'goodsList')
+        }
+      })
+    },
+
+    handleChange (id) {
+      this.currentIndex = id
+      this.params.type = id
+      this.getGoodsList()
+    },
+
+    getMenuInfo() {
+      this.$axios.$post('/api/cargoMenu/page',{
+          menuKey: '1',
+          pageNum: 1,
+          pageSize: -1
+        }).then(res => {
+        if (res.code === 200) {
+          this.menuInfo = res.rows[0] || {}
+        }
+      })
+    }
+  },
+
+  mounted () {
+    this.getClassifyList()
+    this.getGoodsList()
+    this.getMenuInfo()
+    EventBus.$on('searchGoods', data => {
+      this.params.param = data.param !== undefined ? data.param : this.params.param
+      this.params.type = data.type !== undefined ? data.type : this.params.type
+      this.params.salesType = data.salesType !== undefined ? data.salesType : this.params.salesType
+
+      this.getGoodsList()
+    })
+  }
+}
 </script>
 
 <style lang='less' scoped>
@@ -132,7 +199,7 @@
     color: #333;
 
     &.between {
-      justify-content: space-between;
+      justify-content: flex-start;
     }
 
     &.screen {
@@ -204,6 +271,8 @@
           display: flex;
           align-items: flex-start;
           color: #333;
+          font-size: 18px;
+          cursor: pointer;
         }
       }
 
@@ -242,6 +311,7 @@
           background: #f00;
           color: #fff;
           border-radius: 20px;
+          cursor: pointer;
         }
       }
 
