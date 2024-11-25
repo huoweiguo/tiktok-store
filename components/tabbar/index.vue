@@ -2,8 +2,7 @@
   <div class="tabbar__container">
     <div class="tabbar">
       <div class="tabbar__links">
-        <a>您好，请登录</a>
-        <a>免费注册</a>
+        <a>您好，欢迎访问替客拓客</a>
       </div>
       <div class="tabbar__links">
         <a>帮助中心</a>
@@ -12,6 +11,18 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'Tabbar',
+  components: {},
+  data() {
+    return {}
+  },
+  methods: {
+  },
+}
+</script>
 
 <style scoped>
 .tabbar__container {

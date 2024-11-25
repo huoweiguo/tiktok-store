@@ -4,8 +4,7 @@
       <div class="goods-box">
         <div class="goods-img">
           <img
-            src="http://img14.360buyimg.com/pop/jfs/t1/178931/29/46481/55192/666ba63dF77536b63/71c77e003ea1a9b3.jpg"
-          />
+            src="http://img14.360buyimg.com/pop/jfs/t1/178931/29/46481/55192/666ba63dF77536b63/71c77e003ea1a9b3.jpg" />
         </div>
         <div class="goods-info">
           <div class="name">
@@ -16,16 +15,16 @@
             <div class="top">查看人数 <span>100</span></div>
             <div class="price">
               <div>
-                <b>￥32.9</b><span>价格：<s>￥69.9</s></span>
+                <b>&yen;32.9</b><span>价格：<s>&yen;69.9</s></span>
                 <div>到手价</div>
               </div>
               <div>
-                <b>40%</b><span>预估佣金：￥69.9</span>
+                <b>40%</b><span>预估佣金：&yen;69.9</span>
                 <div>佣金比例</div>
               </div>
               <div>
-                <b>40%</b><span>预估佣金：￥69.9</span>
-                <div>佣金比例</div>
+                <b>6.80</b><span>预估佣金：&yen;6.50</span>
+                <div>佣金</div>
               </div>
             </div>
           </div>
@@ -39,9 +38,7 @@
     </div>
     <div class="container bg wenan-box">
       <div class="title">
-        <img
-          src="https://www.jingtuitui.com/static/home_v3/images/icon/th_icon.png"
-        />
+        <img src="https://www.jingtuitui.com/static/home_v3/images/icon/th_icon.png" />
         <span>营销文案</span>
       </div>
       <div class="cen-box">
@@ -49,8 +46,7 @@
           <div class="t">常规推广文案</div>
           <div class="c">
             <img
-              src="http://img14.360buyimg.com/pop/jfs/t1/178931/29/46481/55192/666ba63dF77536b63/71c77e003ea1a9b3.jpg"
-            />
+              src="http://img14.360buyimg.com/pop/jfs/t1/178931/29/46481/55192/666ba63dF77536b63/71c77e003ea1a9b3.jpg" />
             <div>
               伍尚ABS强光手电筒led户外USB充电家用便携18650迷你小手
               WS-66数显手电筒+Type-C线（1个装） -----------------------------
@@ -70,8 +66,7 @@
           <div class="t">常规推广文案</div>
           <div class="c">
             <img
-              src="http://img14.360buyimg.com/pop/jfs/t1/178931/29/46481/55192/666ba63dF77536b63/71c77e003ea1a9b3.jpg"
-            />
+              src="http://img14.360buyimg.com/pop/jfs/t1/178931/29/46481/55192/666ba63dF77536b63/71c77e003ea1a9b3.jpg" />
             <div>
               伍尚ABS强光手电筒led户外USB充电家用便携18650迷你小手
               WS-66数显手电筒+Type-C线（1个装） -----------------------------
@@ -91,8 +86,7 @@
           <div class="t">常规推广文案</div>
           <div class="c">
             <img
-              src="http://img14.360buyimg.com/pop/jfs/t1/178931/29/46481/55192/666ba63dF77536b63/71c77e003ea1a9b3.jpg"
-            />
+              src="http://img14.360buyimg.com/pop/jfs/t1/178931/29/46481/55192/666ba63dF77536b63/71c77e003ea1a9b3.jpg" />
             <div>
               伍尚ABS强光手电筒led户外USB充电家用便携18650迷你小手
               WS-66数显手电筒+Type-C线（1个装） -----------------------------
@@ -141,6 +135,7 @@
   display: flex;
   gap: 40px;
   padding: 30px;
+
   .goods-img {
     width: 400px;
     height: 400px;
@@ -151,18 +146,22 @@
       max-height: 100%;
     }
   }
+
   .goods-info {
     flex: 1;
+
     .name {
       font-size: 20px;
       font-weight: bold;
       color: #333;
     }
   }
+
   .info-box {
     background: #f6f6f6;
     margin: 30px 0;
     border-radius: 5px;
+
     .top {
       text-align: right;
       color: rgba(255, 255, 255, 0.5);
@@ -182,13 +181,16 @@
       padding: 20px;
       font-size: 16px;
       text-align: center;
-      & > div {
+
+      &>div {
         flex: 1;
         line-height: 2;
+
         b {
           font-size: 24px;
           color: #ff4215;
         }
+
         span {
           font-size: 14px;
           display: block;
@@ -197,6 +199,7 @@
       }
     }
   }
+
   .btns {
     button {
       height: 45px;
@@ -211,11 +214,13 @@
     font-size: 18px;
     padding: 15px;
     border-bottom: 1px solid #f6f6f6;
+
     img {
       display: inline-block;
       vertical-align: middle;
     }
   }
+
   .cen-box {
     display: flex;
     padding: 20px;
@@ -251,10 +256,12 @@
 
     &:nth-child(2) {
       border-color: #ff5400;
+
       &:hover {
         box-shadow: 0 0 0 2px #ff5400;
         background: rgba(255, 84, 0, 0.1);
       }
+
       .t {
         background: #ff5400;
       }
@@ -262,10 +269,12 @@
 
     &:nth-child(3) {
       border-color: #13bf6f;
+
       &:hover {
         box-shadow: 0 0 0 2px #13bf6f;
         background: rgba(19, 191, 111, 0.1);
       }
+
       .t {
         background: #13bf6f;
       }
@@ -280,9 +289,11 @@
       // 强制换行
       word-break: break-all;
     }
+
     .bts {
       text-align: center;
       margin-bottom: 30px;
+
       button {
         height: 35px;
         border-radius: 35px;
@@ -295,14 +306,18 @@
 
 .jingpin-box {
   margin: 50px 0;
+
   .title {
     text-align: center;
+
     b {
       font-size: 30px;
     }
+
     div {
       color: #666;
       margin-top: 10px;
+
       &::before,
       &::after {
         content: "-- -- -- -- -- -- -- --";
@@ -314,6 +329,7 @@
       }
     }
   }
+
   .list-box {
     margin-top: 30px;
   }

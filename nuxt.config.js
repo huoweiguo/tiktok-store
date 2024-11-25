@@ -40,6 +40,19 @@ export default {
     baseURL: "/",
   },
 
+  server: {
+    port: 3000,
+    proxy: {
+      api: {
+        target: `http://106.15.66.245:39989`,
+        changeOrigin: true,
+        pathRewrite: {
+          "^/api": "/api",
+        },
+      },
+    },
+  },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
 };

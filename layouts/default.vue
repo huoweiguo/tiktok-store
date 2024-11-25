@@ -18,7 +18,9 @@
 
 <script>
 export default {
-  data() { },
+  data() {
+    return {}
+  },
   head() {
     return {
       meta: [
