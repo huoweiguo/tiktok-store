@@ -6,7 +6,8 @@
         <div class="jxhh__desc">{{ menuInfo.textDesc }}</div>
         <div class="types-box">
           <div class="line between">
-            <a v-for="item in classifyList" :key="item.id" :class="{ active: item.id === currentIndex }" @click="handleChange(item.id)">{{ item.name }}</a>
+            <a v-for="item in classifyList" :key="item.id" :class="{ active: item.id === currentIndex }"
+              @click="handleChange(item.id)">{{ item.name }}</a>
           </div>
           <!-- <div class="line screen">
             <div>￥<input type="text"></div>
@@ -44,8 +45,10 @@
               </div>
             </div>
             <div class="goods__hits">
-              <span><img style="height: 16px" src="../assets/images/eye__icon.svg" /><b>{{ item.readCount }}</b></span>
-              <span><img style="height: 20px" src="../assets/images/click__icon.svg" /><b>{{ item.clickCount }}</b></span>
+              <span><img style="height: 16px" src="../static/assets/images/eye__icon.svg" /><b>{{ item.readCount
+                  }}</b></span>
+              <span><img style="height: 20px" src="../static/assets/images/click__icon.svg" /><b>{{ item.clickCount
+                  }}</b></span>
             </div>
             <div class="btn-box">
               <div class="btn">
@@ -82,7 +85,7 @@
 <script>
 import { EventBus } from '@/utils/event-bus'
 export default {
-  data () {
+  data() {
     return {
       params: {
         param: '',
@@ -99,7 +102,7 @@ export default {
   },
 
   methods: {
-    getClassifyList () {
+    getClassifyList() {
       this.$axios.post('/api/CargoType/page', {
         enableFlag: 1,
         pageNum: 1,
@@ -115,12 +118,12 @@ export default {
       })
     },
 
-    goLink (id) {
+    goLink(id) {
       this.$router.push(`/detail/${id}`)
     },
 
-    getGoodsList () {
-      this.$axios.post('/api/cargo/info/page',{
+    getGoodsList() {
+      this.$axios.post('/api/cargo/info/page', {
         ...this.params
       }).then(res => {
         if (res.data.code === 200) {
@@ -130,18 +133,18 @@ export default {
       })
     },
 
-    handleChange (id) {
+    handleChange(id) {
       this.currentIndex = id
       this.params.type = id
       this.getGoodsList()
     },
 
     getMenuInfo() {
-      this.$axios.$post('/api/cargoMenu/page',{
-          menuKey: '1',
-          pageNum: 1,
-          pageSize: -1
-        }).then(res => {
+      this.$axios.$post('/api/cargoMenu/page', {
+        menuKey: '1',
+        pageNum: 1,
+        pageSize: -1
+      }).then(res => {
         if (res.code === 200) {
           this.menuInfo = res.rows[0] || {}
         }
@@ -149,7 +152,7 @@ export default {
     }
   },
 
-  mounted () {
+  mounted() {
     this.getClassifyList()
     this.getGoodsList()
     this.getMenuInfo()
@@ -169,7 +172,7 @@ export default {
   // 背景渐变
   min-height: 382px;
   padding-top: 30px;
-  background: url(/_nuxt/assets/images/center-bg.png) no-repeat;
+  background: url(/_nuxt/static/assets/images/center-bg.png) no-repeat;
   margin-bottom: 30px;
 
   .title {

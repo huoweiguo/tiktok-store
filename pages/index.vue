@@ -3,25 +3,15 @@
     <!--榜单分类-->
     <div class="catalog__container">
       <div class="advert__swiper">
-        <swiper
-          ref="swiperThumbs"
-          class="swiper gallery-thumbs"
-          :options="swiperOptionThumbs"
-        >
+        <swiper ref="swiperThumbs" class="swiper gallery-thumbs" :options="swiperOptionThumbs">
           <swiper-slide v-for="(item, index) in sliderArr" :key="index">
             <a :href="toLinks(item)">
               <img class="swiper__img" :src="item.advertisingUrl" :alt="item.name" />
             </a>
           </swiper-slide>
           <div slot="pagination" class="swiper-pagination"></div>
-          <div
-            slot="button-next"
-            class="swiper-button-next swiper-button-white"
-          ></div>
-          <div
-            slot="button-prev"
-            class="swiper-button-prev swiper-button-white"
-          ></div>
+          <div slot="button-next" class="swiper-button-next swiper-button-white"></div>
+          <div slot="button-prev" class="swiper-button-prev swiper-button-white"></div>
         </swiper>
       </div>
 
@@ -33,7 +23,7 @@
 
     <!--商品列表-->
     <div class="goods__container__list">
-      <goodsItem :list="goodsList"/>
+      <goodsItem :list="goodsList" />
     </div>
   </div>
 </template>
@@ -48,7 +38,7 @@ export default {
     Swiper,
     SwiperSlide
   },
-  data () {
+  data() {
     return {
       sliderArr: [],
       swiperOptionThumbs: {
@@ -90,14 +80,14 @@ export default {
       pageSize: 100
     })
     if (ret.code === 200) {
-      return { goodsList: ret.rows || [] } 
+      return { goodsList: ret.rows || [] }
     }
 
     return { goodsList: [] }
   },
 
   methods: {
-    getSliderList () {
+    getSliderList() {
       this.$axios.$post('/api/CargoAdvertising/page', {
         advertisingFlag: 0,
         pageNum: 0,
@@ -109,8 +99,8 @@ export default {
       })
     },
 
-    getGoodsList () {
-      this.$axios.post('/api/cargo/info/page',{
+    getGoodsList() {
+      this.$axios.post('/api/cargo/info/page', {
         ...this.params
       }).then(res => {
         if (res.data.code === 200) {
@@ -119,7 +109,7 @@ export default {
       })
     },
 
-    toLinks (obj) {
+    toLinks(obj) {
       const { advertisingType, advertisingAddr } = obj
       if (advertisingType === 0) {
         // 菜单
@@ -131,7 +121,7 @@ export default {
     }
   },
 
-  mounted () {
+  mounted() {
     this.getSliderList()
     this.getGoodsList()
 
@@ -161,6 +151,7 @@ export default {
   width: 1200px;
   height: 300px;
   margin: 0 auto 30px;
+
   a {
     display: block;
     cursor: pointer;
@@ -179,7 +170,7 @@ export default {
 .catalog__container {
   min-height: 382px;
   padding-top: 30px;
-  background: url("../assets/images/center-bg.png") no-repeat;
+  background: url("../static/assets/images/center-bg.png") no-repeat;
   margin-bottom: 30px;
 }
 

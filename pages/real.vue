@@ -4,14 +4,15 @@
       <div class="container">
         <div class="types-box">
           <div class="line between">
-            <a v-for="item in classifyList" :key="item.id" :class="{ active: item.id === currentIndex }" @click="handleChange(item.id)">{{ item.name }}</a>
+            <a v-for="item in classifyList" :key="item.id" :class="{ active: item.id === currentIndex }"
+              @click="handleChange(item.id)">{{ item.name }}</a>
           </div>
         </div>
       </div>
     </div>
     <div class="container">
       <div class="list-box">
-        <goodsItemAll :list="goodsList"/>
+        <goodsItemAll :list="goodsList" />
       </div>
 
       <div class="page-box">
@@ -40,7 +41,7 @@
 <script>
 import { EventBus } from '@/utils/event-bus'
 export default {
-  data () {
+  data() {
     return {
       params: {
         param: '',
@@ -56,7 +57,7 @@ export default {
   },
 
   methods: {
-    getClassifyList () {
+    getClassifyList() {
       this.$axios.post('/api/CargoType/page', {
         enableFlag: 1,
         pageNum: 1,
@@ -72,8 +73,8 @@ export default {
       })
     },
 
-    getGoodsList () {
-      this.$axios.post('/api/cargo/info/page',{
+    getGoodsList() {
+      this.$axios.post('/api/cargo/info/page', {
         ...this.params
       }).then(res => {
         if (res.data.code === 200) {
@@ -82,14 +83,14 @@ export default {
       })
     },
 
-    handleChange (id) {
+    handleChange(id) {
       this.currentIndex = id
       this.params.type = id
       this.getGoodsList()
     }
   },
 
-  mounted () {
+  mounted() {
     this.getClassifyList()
     this.getGoodsList()
     EventBus.$on('searchGoods', data => {
@@ -108,7 +109,7 @@ export default {
   // 背景渐变
   min-height: 382px;
   padding-top: 30px;
-  background: url(/_nuxt/assets/images/center-bg.png) no-repeat;
+  background: url(/_nuxt/static/assets/images/center-bg.png) no-repeat;
   margin-bottom: 30px;
 
   .title {

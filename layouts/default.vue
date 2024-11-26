@@ -35,6 +35,6 @@ export default {
 </script>
 
 <style lang="less">
-@import url("~/assets/css/resets.css");
-@import url("~/assets/css/common.css");
+@import url("~/static/assets/css/resets.css");
+@import url("~/static/assets/css/common.css");
 </style>

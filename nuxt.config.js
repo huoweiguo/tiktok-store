@@ -14,7 +14,7 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-  // css: ["~/assets/css/resets.css", "~/assets/css/common.css"],
+  // css: ["~/static/assets/css/resets.css", "~/static/assets/css/common.css"],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [],
@@ -39,7 +39,7 @@ export default {
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     proxy: true,
-    prefix: "/api/",
+    prefix: "/",
     credential: true,
   },
 
@@ -47,7 +47,7 @@ export default {
     "/api/": {
       target: `http://106.15.66.245:39989`, // 目标服务器ip
       pathRewrite: {
-        "^/api/": "/", // 把 /api 替换成 /
+        "^/api/": "/api/", // 把 /api 替换成 /
         changeOrigin: true, // 是否跨域
       },
     },

@@ -4,12 +4,14 @@
       <!-- <span class="goods__tag">{{ index + 1 }}</span> -->
       <img class="goods__image" :src="item.fileList[0].fileUrl" />
       <div class="goods__hits">
-        <span><img style="height: 16px" src="../../assets/images/eye__icon.svg" /><b>{{ item.readCount }}</b></span>
-        <span><img style="height: 20px" src="../../assets/images/click__icon.svg" /><b>{{ item.clickCount }}</b></span>
+        <span><img style="height: 16px" src="../../static/assets/images/eye__icon.svg" /><b>{{ item.readCount
+            }}</b></span>
+        <span><img style="height: 20px" src="../../static/assets/images/click__icon.svg" /><b>{{ item.clickCount
+            }}</b></span>
       </div>
       <div class="goods__name">{{ item.name }}</div>
       <div class="shop__address">
-        <img style="height: 16px" src="../../assets/images/mall-f.svg" /> <span>{{ item.shopName.length > 10 ?
+        <img style="height: 16px" src="../../static/assets/images/mall-f.svg" /> <span>{{ item.shopName.length > 10 ?
           item.shopName.slice(0, 10) + '...' : item.shopName }}</span>
       </div>
       <div class="goods__item__tag">
@@ -32,7 +34,7 @@ export default {
   props: ['list'],
 
   methods: {
-    goLink (id) {
+    goLink(id) {
       this.$router.push(`/detail/${id}`)
     }
   }
@@ -67,7 +69,7 @@ export default {
   padding-top: 20px;
   font-size: 16px;
   font-family: "DIN-Medium";
-  background: url("../../assets/images/top_small.png") no-repeat;
+  background: url("../../static/assets/images/top_small.png") no-repeat;
   color: #fff;
   text-align: center;
 }

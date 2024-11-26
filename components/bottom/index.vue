@@ -31,8 +31,8 @@
       <div class="bottom__content__right">
         <h3>联系我们</h3>
         <div class="bottom__info">
-          <div class="bottom__item"><img src="../../assets/images/14-1.jpg" /><span>公众号</span></div>
-          <div class="bottom__item"><img src="../../assets/images/14-4.png" /><span>联系人</span></div>
+          <div class="bottom__item"><img src="../../static/assets/images/14-1.jpg" /><span>公众号</span></div>
+          <div class="bottom__item"><img src="../../static/assets/images/14-4.png" /><span>联系人</span></div>
         </div>
       </div>
     </div>

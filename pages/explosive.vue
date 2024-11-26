@@ -61,7 +61,7 @@
         </div>
         <div class="right">
           <div class="rbox" v-for="item in advList" :key="item.id">
-            <img :src="item.advertisingUrl" @click="toRouter(item)"/>
+            <img :src="item.advertisingUrl" @click="toRouter(item)" />
           </div>
         </div>
       </div>
@@ -73,7 +73,7 @@
 import { EventBus } from '@/utils/event-bus'
 import { routerType } from '@/utils/tools'
 export default {
-  data () {
+  data() {
     return {
       menuInfo: {},
       goodsList: [],
@@ -89,8 +89,8 @@ export default {
   },
 
   methods: {
-    getGoodsList () {
-      this.$axios.post('/api/cargo/info/page',{
+    getGoodsList() {
+      this.$axios.post('/api/cargo/info/page', {
         ...this.params
       }).then(res => {
         if (res.data.code === 200) {
@@ -100,22 +100,22 @@ export default {
     },
 
     getMenuInfo() {
-      this.$axios.$post('/api/cargoMenu/page',{
-          menuKey: '2',
-          pageNum: 1,
-          pageSize: -1
-        }).then(res => {
+      this.$axios.$post('/api/cargoMenu/page', {
+        menuKey: '2',
+        pageNum: 1,
+        pageSize: -1
+      }).then(res => {
         if (res.code === 200) {
           this.menuInfo = res.rows[0] || {}
         }
       })
     },
 
-    goLink (id) {
+    goLink(id) {
       this.$router.push(`/detail/${id}`)
     },
 
-    getAdvert () {
+    getAdvert() {
       this.$axios.$post('/api/CargoAdvertising/page', {
         advertisingFlag: 0,
         pageNum: 1,
@@ -127,7 +127,7 @@ export default {
       })
     },
 
-    toRouter (obj) {
+    toRouter(obj) {
       const { advertisingType, advertisingAddr } = obj
       if (advertisingType === 0) {
         // 菜单
@@ -139,7 +139,7 @@ export default {
     }
   },
 
-  mounted () {
+  mounted() {
     this.getGoodsList()
     this.getMenuInfo()
     this.getAdvert()
@@ -159,7 +159,7 @@ export default {
   // 背景渐变
   min-height: 382px;
   padding-top: 30px;
-  background: url(/_nuxt/assets/images/center-bg.png) no-repeat;
+  background: url(/_nuxt/static/assets/images/center-bg.png) no-repeat;
   margin-bottom: 30px;
 
   .title {
@@ -282,6 +282,7 @@ export default {
 
       .title {
         margin-bottom: 20px;
+
         .top {
           display: inline-block;
           vertical-align: middle;
@@ -302,6 +303,7 @@ export default {
           align-items: flex-start;
           color: #333;
           cursor: pointer;
+
           span {
             font-size: 18px;
           }

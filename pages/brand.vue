@@ -29,14 +29,16 @@
                   <div>佣金</div>
                 </div>
                 <div class="pb">
-                  <span>{{item.brokerageRatio}}%</span>
+                  <span>{{ item.brokerageRatio }}%</span>
                   <div>佣金比</div>
                 </div>
               </div>
 
               <div class="statistic">
-                <div><img style="height: 16px" src="../assets/images/eye__icon.svg" /><span>{{item.readCount}}</span></div>
-                <div><img style="height: 20px" src="../assets/images/click__icon.svg" /><span>{{ item.clickCount }}</span></div>
+                <div><img style="height: 16px"
+                    src="../static/assets/images/eye__icon.svg" /><span>{{ item.readCount }}</span></div>
+                <div><img style="height: 20px" src="../static/assets/images/click__icon.svg" /><span>{{ item.clickCount
+                    }}</span></div>
               </div>
 
               <div class="btn-box">
@@ -48,7 +50,7 @@
           </div>
           <div class="shop">
             <div class="tabs">
-              <img src="../assets/images/brand_tag.png" /><span>{{ item.shopName }}</span>
+              <img src="../static/assets/images/brand_tag.png" /><span>{{ item.shopName }}</span>
             </div>
           </div>
         </div>
@@ -80,7 +82,7 @@
 <script>
 import { EventBus } from '@/utils/event-bus'
 export default {
-  data () {
+  data() {
     return {
       params: {
         param: '',
@@ -95,8 +97,8 @@ export default {
     }
   },
   methods: {
-    getGoodsList () {
-      this.$axios.post('/api/cargo/info/page',{
+    getGoodsList() {
+      this.$axios.post('/api/cargo/info/page', {
         ...this.params
       }).then(res => {
         if (res.data.code === 200) {
@@ -105,23 +107,23 @@ export default {
       })
     },
 
-    goLink (id) {
+    goLink(id) {
       this.$router.push(`/detail/${id}`)
     },
 
     getMenuInfo() {
-      this.$axios.$post('/api/cargoMenu/page',{
-          menuKey: '3',
-          pageNum: 1,
-          pageSize: -1
-        }).then(res => {
+      this.$axios.$post('/api/cargoMenu/page', {
+        menuKey: '3',
+        pageNum: 1,
+        pageSize: -1
+      }).then(res => {
         if (res.code === 200) {
           this.menuInfo = res.rows[0] || {}
         }
       })
     }
   },
-  mounted () {
+  mounted() {
     this.getMenuInfo()
     this.getGoodsList()
     EventBus.$on('searchGoods', data => {
@@ -139,7 +141,7 @@ export default {
   // 背景渐变
   min-height: 382px;
   padding-top: 30px;
-  background: url(/_nuxt/assets/images/center-bg.png) no-repeat;
+  background: url(/_nuxt/static/assets/images/center-bg.png) no-repeat;
   margin-bottom: 30px;
 
   .title {
@@ -155,6 +157,7 @@ export default {
     color: rgba(255, 255, 255, 0.8);
   }
 }
+
 .list-box {
   display: flex;
   flex-wrap: wrap;
@@ -174,6 +177,7 @@ export default {
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
       transform: translateY(-5px);
     }
+
     .box {
       display: flex;
       gap: 20px;
@@ -198,6 +202,7 @@ export default {
       .title {
         margin-bottom: 30px;
         font-size: 16px;
+
         a {
           display: flex;
           align-items: flex-start;
@@ -231,29 +236,31 @@ export default {
           }
         }
       }
+
       .progress {
         height: 6px;
         border-radius: 6px;
         background-color: #fafafa;
         margin-bottom: 10px;
+
         .bar {
           display: block;
           height: 100%;
           width: 100%;
           background: rgb(255, 105, 65);
-          background: linear-gradient(
-            90deg,
-            rgba(255, 105, 65, 1),
-            rgba(255, 145, 50, 1)
-          );
+          background: linear-gradient(90deg,
+              rgba(255, 105, 65, 1),
+              rgba(255, 145, 50, 1));
           border-radius: inherit;
         }
       }
+
       .statistic {
         display: flex;
         align-items: center;
         margin: 20px 0;
-        & > div {
+
+        &>div {
           display: flex;
           align-items: center;
           margin-right: 20px;
@@ -273,17 +280,20 @@ export default {
         }
       }
     }
+
     .shop {
       border-top: 1px solid #f6f6f6;
       display: flex;
       justify-content: space-between;
       padding: 15px 0px 0;
       margin-top: 10px;
+
       .name {
         a {
           display: flex;
           align-items: center;
           color: #666;
+
           img {
             width: 12px;
             height: 12px;
@@ -291,13 +301,16 @@ export default {
           }
         }
       }
+
       .tabs {
         display: flex;
+
         img {
           display: block;
           width: 12px;
           height: 24px;
         }
+
         span {
           display: block;
           line-height: 24px;
@@ -309,11 +322,9 @@ export default {
           border-radius: 0 4px 4px 0;
           position: relative;
           background: rgb(91, 161, 255);
-          background: linear-gradient(
-            90deg,
-            rgba(91, 161, 255, 1),
-            rgba(109, 111, 255, 1)
-          );
+          background: linear-gradient(90deg,
+              rgba(91, 161, 255, 1),
+              rgba(109, 111, 255, 1));
         }
       }
     }

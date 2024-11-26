@@ -1,7 +1,7 @@
 <template>
   <div class="search__container">
     <div class="search__input">
-      <input type="text" placeholder="请输入搜索关键词" v-model="searchValue"/>
+      <input type="text" placeholder="请输入搜索关键词" v-model="searchValue" />
       <a class="search__button">搜索</a>
       <!-- <div class="search-hot">
         <a>拖鞋</a>
@@ -11,9 +11,9 @@
       </div> -->
     </div>
     <div class="search__icon">
-      <a><img src="../../assets/images/serch-1.png" />人工审核</a>
-      <a><img src="../../assets/images/serch-2.png" />实时排查</a>
-      <a><img src="../../assets/images/serch-3.png" />持续上新</a>
+      <a><img src="../../static/assets/images/serch-1.png" />人工审核</a>
+      <a><img src="../../static/assets/images/serch-2.png" />实时排查</a>
+      <a><img src="../../static/assets/images/serch-3.png" />持续上新</a>
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@
 <script>
 import { EventBus } from '@/utils/event-bus'
 export default {
-  data () {
+  data() {
     return {
       searchValue: '',
       timer: null
@@ -29,7 +29,7 @@ export default {
   },
 
   watch: {
-    searchValue (val) {
+    searchValue(val) {
       console.log(val, '111')
       clearTimeout(this.timer)
       this.timer = setTimeout(() => {
@@ -51,10 +51,12 @@ export default {
   width: 1200px;
   margin: 0 auto;
 }
+
 .search__input {
   position: relative;
   display: flex;
 }
+
 .search__input input {
   width: 420px;
   height: 40px;
@@ -65,6 +67,7 @@ export default {
   box-sizing: border-box;
   color: #666;
 }
+
 .search__button {
   display: flex;
   justify-content: center;
@@ -77,9 +80,11 @@ export default {
   color: #ccc;
   cursor: pointer;
 }
+
 .search__icon {
   display: flex;
 }
+
 .search__icon a {
   display: flex;
   align-items: center;
@@ -88,21 +93,25 @@ export default {
   font-size: 12px;
   color: #999;
 }
+
 .search__icon img {
   display: block;
   margin-bottom: 7px;
 }
+
 .search-hot {
   position: absolute;
   left: 20px;
   top: 43px;
 }
+
 .search-hot a {
   margin-right: 10px;
   color: #999;
   font-size: 14px;
   cursor: pointer;
 }
+
 .search-hot a:hover {
   color: #666;
 }
