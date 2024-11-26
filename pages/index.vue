@@ -9,7 +9,7 @@
           :options="swiperOptionThumbs"
         >
           <swiper-slide v-for="(item, index) in sliderArr" :key="index">
-            <a @click="goLink(item)">
+            <a :href="toLinks(item)">
               <img class="swiper__img" :src="item.advertisingUrl" :alt="item.name" />
             </a>
           </swiper-slide>
@@ -80,6 +80,22 @@ export default {
     }
   },
 
+  async asyncData({ $axios }) {
+    const ret = await $axios.$post('/api/cargo/info/page', {
+      param: '',
+      featrue: 0,
+      salesType: 0,
+      type: '',
+      pageNum: 1,
+      pageSize: 100
+    })
+    if (ret.code === 200) {
+      return { goodsList: ret.rows || [] } 
+    }
+
+    return { goodsList: [] }
+  },
+
   methods: {
     getSliderList () {
       this.$axios.$post('/api/CargoAdvertising/page', {
@@ -103,15 +119,14 @@ export default {
       })
     },
 
-    goLink (obj) {
-      console.log(obj, 'obj')
+    toLinks (obj) {
       const { advertisingType, advertisingAddr } = obj
       if (advertisingType === 0) {
         // 菜单
-        this.$router.push(routerType[advertisingAddr])
+        return routerType[advertisingAddr]
       } else {
         // 商品详情
-        this.$router.push(`/detail/${advertisingAddr}`)
+        return `/detail/${advertisingAddr}`
       }
     }
   },
