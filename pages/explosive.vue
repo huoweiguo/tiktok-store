@@ -159,7 +159,7 @@ export default {
   // 背景渐变
   min-height: 382px;
   padding-top: 30px;
-  background: url(/_nuxt/static/assets/images/center-bg.png) no-repeat;
+  background: url(../static/assets/images/center-bg.png) no-repeat;
   margin-bottom: 30px;
 
   .title {

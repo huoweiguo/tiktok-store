@@ -15,7 +15,7 @@
             </div>
             <div class="r">
               <div class="title">
-                <a href="/detail/">
+                <a @click="goLink(item.id)">
                   <span>{{ item.name }}</span>
                 </a>
               </div>
@@ -35,8 +35,8 @@
               </div>
 
               <div class="statistic">
-                <div><img style="height: 16px"
-                    src="../static/assets/images/eye__icon.svg" /><span>{{ item.readCount }}</span></div>
+                <div><img style="height: 16px" src="../static/assets/images/eye__icon.svg" /><span>{{ item.readCount
+                    }}</span></div>
                 <div><img style="height: 20px" src="../static/assets/images/click__icon.svg" /><span>{{ item.clickCount
                     }}</span></div>
               </div>
@@ -141,7 +141,7 @@ export default {
   // 背景渐变
   min-height: 382px;
   padding-top: 30px;
-  background: url(/_nuxt/static/assets/images/center-bg.png) no-repeat;
+  background: url(../static/assets/images/center-bg.png) no-repeat;
   margin-bottom: 30px;
 
   .title {
