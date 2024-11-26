@@ -24,7 +24,7 @@ export default {
   methods: {
     getData() {
       axios({
-        url: '/api/cargoMenu/page',
+        url: '/cargoMenu/page',
         method: 'post',
         data: {
           name: '',
