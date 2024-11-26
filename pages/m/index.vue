@@ -2,121 +2,49 @@
   <div>
     <div class="head">
       <div class="seatch">
-        <input type="text" value="" placeholder="搜一下">
+        <input type="text" value="" placeholder="搜一下" />
       </div>
 
-      <div class="seatch_butt">
-        搜索
-      </div>
+      <div class="seatch_butt">搜索</div>
     </div>
 
     <!--  -->
     <div class="swiper-box">
-      <img class="swiper__img" src="http://img.jingtuitui.com/web/images_qn4_141_944ba_20241109165621_5306.png"
-        style="height: auto;width: 100%;" />
+      <swiper
+        ref="swiperThumbs"
+        class="swiper gallery-thumbs"
+        :options="swiperOptionThumbs"
+      >
+        <swiper-slide v-for="(item, index) in sliderArr" :key="index">
+          <a @click="goLink(item)">
+            <img
+              class="swiper__img"
+              :src="item.advertisingUrl"
+              :alt="item.name"
+            />
+          </a>
+        </swiper-slide>
+        <div slot="pagination" class="swiper-pagination"></div>
+        <div
+          slot="button-next"
+          class="swiper-button-next swiper-button-white"
+        ></div>
+        <div
+          slot="button-prev"
+          class="swiper-button-prev swiper-button-white"
+        ></div>
+      </swiper>
     </div>
 
     <!--  -->
     <div class="kind">
       <ul>
-        <li class="kind_box">
-          <a href="/m/sift">
+        <li class="kind_box" v-for="(item, index) in smallMenu" :key="index">
+          <a :href="`/m/sift?id=${item.id}`">
             <div class="kind_photo">
-              <img src="https://www.jingtuitui.com/static/home/mobile/img/boy_c.png">
+              <img :src="item.typeUrl" />
             </div>
-            <div class="kind_name">
-              男装
-            </div>
-          </a>
-        </li>
-        <li class="kind_box">
-          <a href="/m/sift">
-            <div class="kind_photo">
-              <img src="https://www.jingtuitui.com/static/home/mobile/img/girl_c.png">
-            </div>
-            <div class="kind_name">
-              女装
-            </div>
-          </a>
-        </li>
-        <li class="kind_box">
-          <a href="/m/sift">
-            <div class="kind_photo">
-              <img src="https://www.jingtuitui.com/static/home/mobile/img/baby.png">
-            </div>
-            <div class="kind_name">
-              母婴用品
-            </div>
-          </a>
-        </li>
-        <li class="kind_box">
-          <a href="/m/sift">
-            <div class="kind_photo">
-              <img src="https://www.jingtuitui.com/static/home/mobile/img/box.png">
-            </div>
-            <div class="kind_name">
-              鞋品箱包
-            </div>
-          </a>
-        </li>
-        <li class="kind_box">
-          <a href="/m/sift">
-            <div class="kind_photo">
-              <img src="https://www.jingtuitui.com/static/home/mobile/img/orm.png">
-            </div>
-            <div class="kind_name">
-              内衣配饰
-            </div>
-          </a>
-        </li>
-        <li class="kind_box">
-          <a href="/m/sift">
-            <div class="kind_photo">
-              <img src="https://www.jingtuitui.com/static/home/mobile/img/food.png">
-            </div>
-            <div class="kind_name">
-              食品保健
-            </div>
-          </a>
-        </li>
-        <li class="kind_box">
-          <a href="/m/sift">
-            <div class="kind_photo">
-              <img src="https://www.jingtuitui.com/static/home/mobile/img/car.png">
-            </div>
-            <div class="kind_name">
-              文具车品
-            </div>
-          </a>
-        </li>
-        <li class="kind_box">
-          <a href="/m/sift">
-            <div class="kind_photo">
-              <img src="https://www.jingtuitui.com/static/home/mobile/img/emmm.png">
-            </div>
-            <div class="kind_name">
-              数码家电
-            </div>
-          </a>
-        </li>
-        <li class="kind_box">
-          <a href="/m/sift">
-            <div class="kind_photo">
-              <img src="https://www.jingtuitui.com/static/home/mobile/img/home.png">
-            </div>
-            <div class="kind_name">
-              居家生活
-            </div>
-          </a>
-        </li>
-        <li class="kind_box">
-          <a href="/m/sift">
-            <div class="kind_photo">
-              <img src="https://www.jingtuitui.com/static/home/mobile/img/makeup.png">
-            </div>
-            <div class="kind_name">
-              美妆个护
-            </div>
+            <div class="kind_name">{{ item.name }}</div>
           </a>
         </li>
       </ul>
@@ -126,38 +54,40 @@
     <div class="cut_box">
       <div class="cut_newgoods">
         <div class="cut_icon">
-          <img src="https://www.jingtuitui.com/static/home/mobile/img/icon1.png">
+          <img
+            src="https://www.jingtuitui.com/static/home/mobile/img/icon1.png"
+          />
         </div>
 
         新品推荐
 
         <div class="cut_icon">
-          <img src="https://www.jingtuitui.com/static/home/mobile/img/icon2.png">
+          <img
+            src="https://www.jingtuitui.com/static/home/mobile/img/icon2.png"
+          />
         </div>
       </div>
     </div>
 
     <!--  -->
     <div class="goods">
-      <div class="goods-item" v-for="i in 20" :key="i">
-        <a href="/m/goods">
+      <div class="goods-item" v-for="(item, i) in goodsList" :key="i">
+        <a :href="`/m/goods?id=${item.id}`">
           <div class="new_goods">
             <div class="goods_photo">
-              <img
-                src="https://img14.360buyimg.com/pop/jfs/t1/198876/6/44020/143866/66f3e2a4F0d63ed06/b01745a024bada40.jpg?imageView2/2/w/260/h/260/q/100/imageMogr2/strip/format/jpg"
-                data-img="https://img14.360buyimg.com/pop/jfs/t1/198876/6/44020/143866/66f3e2a4F0d63ed06/b01745a024bada40.jpg?imageView2/2/w/260/h/260/q/100/imageMogr2/strip/format/jpg"
-                class="" _400x400="">
+              <img :src="item.fileList[0].fileUrl" />
             </div>
-            <div class="quan">
-              券￥5 </div>
-            <div class="goods_show">
-              【补贴到手49.9元】GUO LIAN 国联水产 生虾仁 245g*4袋共（大号93-118只） </div>
+            <!-- <div class="quan">券￥5</div> -->
+            <div class="goods_show">{{ item.name }}</div>
             <div class="price">
-              到手价<span class="price_c">￥<span class="price_num">49.9</span></span>
-              <span class="price_befor">￥54.9</span>
+              到手价
+              <span class="price_c">
+                ￥<span class="price_num">{{ item.price.toFixed(2) }}</span>
+              </span>
+              <span class="price_befor">￥{{ item.price.toFixed(2) }}</span>
             </div>
             <div class="get_num">
-              佣金：10%（￥4.99）
+              佣金：{{ item.brokerageRatio }}%（￥{{ item.brokerage }}）
             </div>
           </div>
         </a>
@@ -170,8 +100,99 @@
 </template>
 
 <script>
+import { Swiper, SwiperSlide } from "vue-awesome-swiper";
+import "swiper/css/swiper.css";
+import { routerType } from "@/utils/tools";
 export default {
   layout: "mobile",
+  components: {
+    Swiper,
+    SwiperSlide,
+  },
+  data() {
+    return {
+      sliderArr: [],
+      swiperOptionThumbs: {
+        loop: true,
+        loopedSlides: 5,
+        spaceBetween: 10,
+        centeredSlides: true,
+        slidesPerView: "auto",
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      },
+      smallMenu: [],
+      goodsList: [],
+      params: {
+        param: "",
+        featrue: 0,
+        salesType: 0,
+        type: "",
+        pageNum: 1,
+        pageSize: 100,
+      },
+    };
+  },
+  created() {
+    this.getSliderList();
+    this.getClassifyList();
+    this.getGoodsList();
+  },
+  methods: {
+    getSliderList() {
+      this.$axios
+        .$post("/api/CargoAdvertising/page", {
+          advertisingFlag: 0,
+          pageNum: 0,
+          pageSize: -1,
+        })
+        .then((res) => {
+          if (res.code === 200) {
+            this.sliderArr = res.rows || [];
+          }
+        });
+    },
+    goLink(obj) {
+      const { advertisingType, advertisingAddr } = obj;
+      if (advertisingType === 0) {
+        // 菜单
+        this.$router.push(routerType[advertisingAddr]);
+      } else {
+        // 商品详情
+        this.$router.push(`/m/detail/${advertisingAddr}`);
+      }
+    },
+    getClassifyList() {
+      this.$axios
+        .post("/api/CargoType/page", {
+          enableFlag: 1,
+          pageNum: 1,
+          pageSize: -1,
+        })
+        .then((res) => {
+          if (res.data.code === 200) {
+            if (res.data.rows.length > 0) {
+              this.smallMenu = [...res.data.rows];
+            } else {
+              this.smallMenu = [];
+            }
+          }
+        });
+    },
+    getGoodsList() {
+      this.$axios
+        .post("/api/cargo/info/page", {
+          ...this.params,
+        })
+        .then((res) => {
+          if (res.data.code === 200) {
+            this.goodsList = res.data.rows || [];
+          }
+        });
+    },
+  },
 };
 </script>
 
@@ -181,12 +202,10 @@ export default {
   align-items: center;
   margin: 0 auto;
   height: 50px;
-  background: #4A9BF7;
+  background: #4a9bf7;
   text-align: center;
   font-size: 22px;
 }
-
-
 
 .seatch input {
   width: 270px;
@@ -194,7 +213,6 @@ export default {
   border-radius: 17px;
   background: #fff;
   margin-left: 17px;
-
 }
 
 .seatch_butt {
@@ -216,7 +234,6 @@ export default {
   ul {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 20px;
   }
 
@@ -227,7 +244,6 @@ export default {
       display: block;
       text-align: center;
       color: #333;
-
     }
 
     .kind_name {
@@ -279,8 +295,8 @@ export default {
 
     .goods_photo {
       img {
-        width: 100%;
-        max-height: 188px;
+        width: 188px;
+        height: 188px;
         border-radius: 10px;
       }
     }
@@ -293,9 +309,9 @@ export default {
       line-height: 25px;
       z-index: 4;
       font-size: 12px;
-      color: #FFFFFF;
+      color: #ffffff;
       text-align: center;
-      background-color: #4A9BF7;
+      background-color: #4a9bf7;
     }
 
     .goods_show {
@@ -314,9 +330,11 @@ export default {
       line-height: 25px;
       font-size: 14px;
       margin: 0 auto;
+      // 禁止换行
+      white-space: nowrap;
 
       .price_c {
-        color: #4A9BF7;
+        color: #4a9bf7;
         font-size: 18px;
       }
 
