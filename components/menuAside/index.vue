@@ -1,20 +1,23 @@
 <template>
   <div class="menu__container">
     <div class="menu__content">
-      <a class="menu__item" :class="{ active: $route.name == 'index' }" href="/">实时榜单</a>
-      <a class="menu__item" :class="{ active: $route.name == 'sift' }" href="/sift">精选好货</a>
-      <a class="menu__item" :class="{ active: $route.name == 'explosive' }" href="/explosive">超级爆品</a>
-      <a class="menu__item" :class="{ active: $route.name == 'brand' }" href="/brand">品牌优选</a>
-      <a class="menu__item" :class="{ active: $route.name == 'real' }" href="/real">全部商品</a>
+      <a class="menu__item" v-for="item in menuList" :key="item.id" :class="{ active: isCurrent(item.menuKey) }"
+        @click="toLink(item.href)">{{ item.name }}</a>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   data() {
     return {
+      menukey: {
+        '0': '/',
+        '1': '/sift',
+        '2': '/explosive',
+        '3': '/brand',
+        '-1': '/real'
+      },
       menuList: []
     }
   },
@@ -22,18 +25,37 @@ export default {
     this.getData()
   },
   methods: {
+    toLink(link) {
+      this.$router.push(link)
+    },
+    isCurrent(menuKey) {
+      const { path } = this.$route;
+      if (menuKey === '0' && path === '/') {
+        return true
+      } else if (menuKey === '1' && path === '/sift') {
+        return true
+      } else if (menuKey === '2' && path === '/explosive') {
+        return true
+      } else if (menuKey === '3' && path === '/brand') {
+        return true
+      } else if (menuKey === '-1' && path === '/real') {
+        return true
+      }
+
+      return false
+    },
     getData() {
-      axios({
-        url: '/cargoMenu/page',
-        method: 'post',
-        data: {
-          name: '',
-          pageNum: 1,
-          pageSize: -1
-        }
+      this.$axios.$post('/api/cargoMenu/page', {
+        name: '',
+        pageNum: 1,
+        pageSize: -1
       }).then(res => {
         if (res.code === 200) {
-          this.menuList = res.rows || []
+          const list = res.rows || []
+          const sortList = list.sort((a, b) => a.sortNum - b.sortNum)
+          this.menuList = sortList.map(item => (
+            { ...item, href: this.menukey[item.menuKey] }
+          ))
         }
       })
     }

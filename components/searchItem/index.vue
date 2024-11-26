@@ -1,14 +1,14 @@
 <template>
   <div class="search__container">
     <div class="search__input">
-      <input type="text" placeholder="请输入搜索关键词"/>
+      <input type="text" placeholder="请输入搜索关键词" v-model="searchValue"/>
       <a class="search__button">搜索</a>
-      <div class="search-hot">
+      <!-- <div class="search-hot">
         <a>拖鞋</a>
         <a>睡衣</a>
         <a>口罩</a>
         <a>外套</a>
-      </div>
+      </div> -->
     </div>
     <div class="search__icon">
       <a><img src="../../assets/images/serch-1.png" />人工审核</a>
@@ -18,7 +18,28 @@
   </div>
 </template>
 
-<script setup>
+<script>
+import { EventBus } from '@/utils/event-bus'
+export default {
+  data () {
+    return {
+      searchValue: '',
+      timer: null
+    }
+  },
+
+  watch: {
+    searchValue (val) {
+      console.log(val, '111')
+      clearTimeout(this.timer)
+      this.timer = setTimeout(() => {
+        EventBus.$emit('searchGoods', {
+          param: val
+        })
+      }, 300)
+    }
+  }
+}
 </script>
 
 <style scoped>

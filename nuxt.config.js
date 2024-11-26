@@ -32,22 +32,38 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     "@nuxtjs/axios",
+    "@nuxtjs/proxy",
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: "/",
+    proxy: true,
+    prefix: "/api/",
+    credential: true,
+  },
+
+  proxy: {
+    "/api/": {
+      target: `http://106.15.66.245:39989`, // 目标服务器ip
+      pathRewrite: {
+        "^/api/": "/", // 把 /api 替换成 /
+        changeOrigin: true, // 是否跨域
+      },
+    },
   },
 
   server: {
     port: 3000,
-    proxy: {
-      "/": {
-        target: `http://106.15.66.245:39989`,
-        changeOrigin: true,
-      },
-    },
+    // proxy: {
+    //   api: {
+    //     target: `http://106.15.66.245:39989`,
+    //     changeOrigin: true,
+    //     pathRewrite: {
+    //       "^/api": "/api",
+    //     },
+    //   },
+    // },
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

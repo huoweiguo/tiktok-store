@@ -1,27 +1,36 @@
 <template>
   <div class="catalog__item">
-    <div class="item__active">
-      <b>实时爆单榜</b>
-      <span>今日商品领券排行榜</span>
-    </div>
-    <div>
-      <b>昨日爆单榜</b>
-      <span>昨日商品领券排行榜</span>
-    </div>
-    <div>
-      <b>月度销量榜</b>
-      <span>月度实际成交排行榜</span>
-    </div>
-    <div>
-      <b>月度收益榜</b>
-      <span>月度支出佣金排行榜</span>
-    </div>
-    <div>
-      <b>出单指数榜</b>
-      <span>推客真实成交指数榜</span>
+    <div v-for="item in cataList" :key="item.id" :class="{'item__active': current === item.id}" @click="handleClick(item.id)">
+      <b>{{ item.title }}</b>
+      <span>{{ item.smallText }}</span>
     </div>
   </div>
 </template>
+
+<script>
+import { EventBus } from '@/utils/event-bus' 
+export default {
+  data () {
+    return {
+      current: 0,
+      cataList: [
+        { title: '实时爆单榜', smallText: '今日商品领券排行榜', id: 0 },
+        { title: '昨日爆单榜', smallText: '昨日商品领券排行榜', id: 1 },
+        { title: '月度销量榜', smallText: '月度实际成交排行榜', id: 2 },
+        { title: '月度收益榜', smallText: '月度支出佣金排行榜', id: 3 },
+        { title: '出单指数榜', smallText: '推客真实成交指数榜', id: 4 }
+      ]
+    }
+  },
+
+  methods: {
+    handleClick (id) {
+      this.current = id
+      EventBus.$emit('searchGoods', { salesType: id })
+    }
+  }
+}
+</script>
 
 <style scoped>
 .catalog__item {

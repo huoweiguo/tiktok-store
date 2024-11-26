@@ -1,17 +1,49 @@
 <template>
   <div class="small__menu__container">
-    <template v-for="(item, index) in smallMenu">
-      <a :key="index" :class="{ active: index === currentIndex }">{{ item }}</a>
+    <template v-for="item in smallMenu">
+      <a :key="item.id" :class="{ active: item.id === currentIndex }" @click="handleChange(item.id)">{{ item.name }}</a>
     </template>
-    
   </div>
 </template>
 
-<script setup>
-import { ref } from 'vue';
-const smallMenu = ref([]);
-const currentIndex = ref(0);
-smallMenu.value = ['全部', '居家日用', '食品', '生鲜', '图书', '美妆各护', '母婴', '数码家电', '女装']
+<script>
+import { EventBus } from '@/utils/event-bus'
+export default {
+  data () {
+    return {
+      smallMenu: [],
+      currentIndex: ''
+    }
+  },
+
+  methods: {
+    handleChange (id) {
+      this.currentIndex = id
+      EventBus.$emit('searchGoods', {
+        type: id
+      })
+    },
+    getClassifyList () {
+      this.$axios.post('/api/CargoType/page', {
+        enableFlag: 1,
+        pageNum: 1,
+        pageSize: -1
+      }).then(res => {
+        if (res.data.code === 200) {
+          if (res.data.rows.length > 0) {
+            this.smallMenu = [{ id: '', name: '全部' }, ...res.data.rows]
+          } else {
+            this.smallMenu = [{ id: '', name: '全部' }]
+          }
+        }
+      })
+    }
+  },
+
+  mounted () {
+    this.getClassifyList()
+  }
+}
 </script>
 
 <style scoped>
