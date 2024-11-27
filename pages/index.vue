@@ -6,7 +6,7 @@
         <swiper ref="swiperThumbs" class="swiper gallery-thumbs" :options="swiperOptionThumbs">
           <swiper-slide v-for="(item, index) in sliderArr" :key="index">
             <a :href="toLinks(item)">
-              <img class="swiper__img" :src="item.advertisingUrl" :alt="item.name" />
+              <img class="swiper__img" :src="item.fileUrl" :alt="item.name" />
             </a>
           </swiper-slide>
           <div slot="pagination" class="swiper-pagination"></div>
@@ -88,7 +88,7 @@ export default {
 
   methods: {
     getSliderList() {
-      this.$axios.$post('/api/CargoAdvertising/page', {
+      this.$axios.$post('/api/cargo/slideshow/page', {
         advertisingFlag: 0,
         pageNum: 0,
         pageSize: -1
