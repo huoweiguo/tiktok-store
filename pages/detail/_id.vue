@@ -3,14 +3,18 @@
     <div class="container bg">
       <div class="goods-box">
         <div class="goods-img">
-          <swiper ref="swiperThumbs" class="swiper gallery-thumbs" v-if="goodsInfo.fileList?.length > 0"
-            :options="swiperOptionThumbs">
+          <swiper ref="swiper1" class="swiper1" v-if="goodsInfo.fileList?.length > 0" :options="swiperOptionThumbs">
             <swiper-slide v-for="(item, index) in goodsInfo.fileList" :key="index">
               <img class="swiper__img" :src="item.fileUrl" :alt="item.name" />
             </swiper-slide>
             <div slot="pagination" class="swiper-pagination"></div>
             <div slot="button-next" class="swiper-button-next swiper-button-white"></div>
             <div slot="button-prev" class="swiper-button-prev swiper-button-white"></div>
+          </swiper>
+          <swiper ref="swiper2" class="swiper2" v-if="goodsInfo.fileList?.length > 0" :options="swiperOptionThumbs2">
+            <swiper-slide v-for="(item, index) in goodsInfo.fileList" :key="index">
+              <img class="swiper__img" :src="item.fileUrl" :alt="item.name" />
+            </swiper-slide>
           </swiper>
         </div>
 
@@ -137,11 +141,7 @@ export default {
     return {
       goodsInfo: {},
       swiperOptionThumbs: {
-        loop: true,
-        loopedSlides: 5, // looped slides should be the same
-        spaceBetween: 10,
         centeredSlides: true,
-        slidesPerView: "auto",
         touchRatio: 0.2,
         slideToClickedSlide: true,
         pagination: {
@@ -152,6 +152,26 @@ export default {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         },
+        on: {
+          slideChangeTransitionStart: () => {
+            this.$nextTick(() => {
+              this.onChangeSwiper1();
+            })
+          }
+        }
+      },
+      swiperOptionThumbs2: {
+        centeredSlides: true,
+        slidesPerView: 5,
+        slideToClickedSlide: true,
+        clickable: true,
+        on: {
+          slideChangeTransitionStart: () => {
+            this.$nextTick(() => {
+              this.onChangeSwiper2();
+            })
+          }
+        }
       },
     }
   },
@@ -165,12 +185,20 @@ export default {
   async asyncData({ $axios, route }) {
     const { id } = route.params
     const res = await $axios.$get(`/api/cargo/info/detail?id=${id}`)
-    console.log(res, 'res++++')
+
     if (res.code === 200) {
       return { goodsInfo: res.data }
     }
 
     return { goodsInfo: {} }
+  },
+  methods: {
+    onChangeSwiper1() {
+      this.$refs.swiper2.$swiper.slideTo(this.$refs.swiper1.$swiper.activeIndex, 1000, false)
+    },
+    onChangeSwiper2() {
+      this.$refs.swiper1.$swiper.slideTo(this.$refs.swiper2.$swiper.activeIndex, 1000, false)
+    },
   }
 }
 </script>
@@ -186,29 +214,46 @@ export default {
   }
 }
 
+.swiper1 {
+
+  .swiper__img {
+    display: block;
+    max-width: 100%;
+    max-height: 300px;
+    margin: 0 auto;
+  }
+}
+
+.swiper2 {
+
+  .swiper__img {
+    display: block;
+    max-width: 100%;
+    max-height: 50px;
+    margin: 0 auto;
+  }
+
+  :deep(.swiper-slide-active) {
+    .swiper__img {
+      border: 2px solid #f00;
+      border-radius: 5px;
+    }
+  }
+}
+
 .goods-box {
   display: flex;
   gap: 40px;
   padding: 30px;
 
   .goods-img {
-    display: flex;
     width: 400px;
-    height: 300px;
-    justify-content: center;
-    align-items: center;
 
     .swiper-button-prev,
     .swiper-button-next {
       color: #ddd;
     }
 
-    .swiper__img {
-      display: block;
-      max-width: 100%;
-      max-height: 300px;
-      margin: 0 auto;
-    }
   }
 
   .goods-info {
