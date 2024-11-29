@@ -1,14 +1,14 @@
 <template>
-  <div class="bottom__container">
+  <div class="bottom__container" id="bottom_cont">
     <div class="bottom__content">
       <div class="bottom__content__left">
         <div class="bottom__inner__item">
           <h3>商品库</h3>
           <ul>
-            <li>实时榜单</li>
-            <li>精选好货</li>
-            <li>超级爆品</li>
-            <li>全部商品</li>
+            <li @click="links('/')">实时榜单</li>
+            <li @click="links('/sift')">精选好货</li>
+            <li @click="links('/explosive')">超级爆品</li>
+            <li @click="links('/real')">全部商品</li>
           </ul>
         </div>
 
@@ -24,7 +24,7 @@
         <div class="bottom__inner__item">
           <h3>关于我们</h3>
           <ul>
-            <li>公司简介</li>
+            <li @click="links('/about')">公司简介</li>
           </ul>
         </div>
       </div>
@@ -41,6 +41,16 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    links(url) {
+      this.$router.push(url)
+    }
+  }
+}
+</script>
 
 <style lang="css" scoped>
 .bottom__container {

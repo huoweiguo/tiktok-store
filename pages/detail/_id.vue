@@ -3,10 +3,19 @@
     <div class="container bg">
       <div class="goods-box">
         <div class="goods-img">
-          <img :src="goodsInfo.fileList[0].fileUrl" />
+          <swiper ref="swiperThumbs" class="swiper gallery-thumbs" v-if="goodsInfo.fileList?.length > 0"
+            :options="swiperOptionThumbs">
+            <swiper-slide v-for="(item, index) in goodsInfo.fileList" :key="index">
+              <img class="swiper__img" :src="item.fileUrl" :alt="item.name" />
+            </swiper-slide>
+            <div slot="pagination" class="swiper-pagination"></div>
+            <div slot="button-next" class="swiper-button-next swiper-button-white"></div>
+            <div slot="button-prev" class="swiper-button-prev swiper-button-white"></div>
+          </swiper>
         </div>
+
         <div class="goods-info">
-          <div class="name">{{ goodsInfo.name}}</div>
+          <div class="name">{{ goodsInfo.name }}</div>
           <div class="info-box">
             <div class="top">查看人数 <span>{{ goodsInfo.clickCount }}</span></div>
             <div class="price">
@@ -26,7 +35,9 @@
           </div>
 
           <div class="btns">
-            <button>复制文案</button>
+            <a :href="goodsInfo.shopUrl" target="_blank">
+              <button>进入店铺</button>
+            </a>
           </div>
         </div>
       </div>
@@ -114,27 +125,52 @@
 </template>
 
 <script>
+import { Swiper, SwiperSlide } from "vue-awesome-swiper";
+import "swiper/css/swiper.css";
 export default {
-  data () {
+  components: {
+    Swiper,
+    SwiperSlide
+  },
+
+  data() {
     return {
-      goodsInfo: {}
+      goodsInfo: {},
+      swiperOptionThumbs: {
+        loop: true,
+        loopedSlides: 5, // looped slides should be the same
+        spaceBetween: 10,
+        centeredSlides: true,
+        slidesPerView: "auto",
+        touchRatio: 0.2,
+        slideToClickedSlide: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+      },
     }
   },
 
-  methods: {
-    getGoodsDetail () {
-      const { id } = this.$route.params
-      this.$axios.$get(`/api/cargo/info/detail?id=${id}`).then(res => {
-        console.log(res)
-        if (res.code === 200) {
-          this.goodsInfo = res.data || {}
-        }
-      })
+  head() {
+    return {
+      title: this.goodsInfo.name || '商品详情'
     }
   },
 
-  mounted () {
-    this.getGoodsDetail()
+  async asyncData({ $axios, route }) {
+    const { id } = route.params
+    const res = await $axios.$get(`/api/cargo/info/detail?id=${id}`)
+    console.log(res, 'res++++')
+    if (res.code === 200) {
+      return { goodsInfo: res.data }
+    }
+
+    return { goodsInfo: {} }
   }
 }
 </script>
@@ -158,13 +194,20 @@ export default {
   .goods-img {
     display: flex;
     width: 400px;
-    height: 400px;
+    height: 300px;
     justify-content: center;
     align-items: center;
-    img {
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      color: #ddd;
+    }
+
+    .swiper__img {
       display: block;
       max-width: 100%;
-      max-height: 100%;
+      max-height: 300px;
+      margin: 0 auto;
     }
   }
 
@@ -222,10 +265,15 @@ export default {
   }
 
   .btns {
+    a {
+      display: flex;
+    }
+
     button {
       height: 45px;
       padding: 0 30px;
       margin-right: 16px;
+      cursor: pointer;
     }
   }
 }

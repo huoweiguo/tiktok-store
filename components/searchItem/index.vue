@@ -1,5 +1,5 @@
 <template>
-  <div class="search__container">
+  <div class="search__container" v-if="show">
     <div class="search__input">
       <input type="text" placeholder="请输入搜索关键词" v-model="searchValue" />
       <a class="search__button">搜索</a>
@@ -24,19 +24,40 @@ export default {
   data() {
     return {
       searchValue: '',
-      timer: null
+      timer: null,
+      show: true
     }
   },
 
   watch: {
     searchValue(val) {
-      console.log(val, '111')
       clearTimeout(this.timer)
       this.timer = setTimeout(() => {
         EventBus.$emit('searchGoods', {
           param: val
         })
       }, 300)
+    },
+
+    '$route': {
+      handler(to) {
+        const { path } = to;
+        if (path === '/news' || path.includes('/newsDetail') || path === '/about') {
+          this.show = false;
+        } else {
+          this.show = true;
+        }
+      },
+      deep: true
+    }
+  },
+
+  mounted() {
+    const { path } = this.$route;
+    if (path === '/news' || path.includes('/newsDetail') || path === '/about') {
+      this.show = false;
+    } else {
+      this.show = true;
     }
   }
 }

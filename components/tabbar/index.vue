@@ -5,8 +5,8 @@
         <a>您好，欢迎访问替客拓客</a>
       </div>
       <div class="tabbar__links">
-        <a>帮助中心</a>
-        <a>联系我们</a>
+        <a @click="$router.push('/about')">关于我们</a>
+        <a href="#bottom_cont">联系我们</a>
       </div>
     </div>
   </div>

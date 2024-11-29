@@ -1,28 +1,30 @@
 <template>
   <div class="goods__container">
-    <div v-for="item in list" :key="item.id" class="goods__container__item" @click="goLink(item.id)">
-      <!-- <span class="goods__tag">{{ index + 1 }}</span> -->
-      <img class="goods__image" :src="item.fileList[0].fileUrl" />
-      <div class="goods__hits">
-        <span><img style="height: 16px" src="../../static/assets/images/eye__icon.svg" /><b>{{ item.readCount
-            }}</b></span>
-        <span><img style="height: 20px" src="../../static/assets/images/click__icon.svg" /><b>{{ item.clickCount
-            }}</b></span>
-      </div>
-      <div class="goods__name">{{ item.name }}</div>
-      <div class="shop__address">
-        <img style="height: 16px" src="../../static/assets/images/mall-f.svg" /> <span>{{ item.shopName.length > 10 ?
-          item.shopName.slice(0, 10) + '...' : item.shopName }}</span>
-      </div>
-      <div class="goods__item__tag">
-        <div>
-          <b>{{ item.price.toFixed(2) }}</b><span>到手价</span>
+    <div class="goods__inner">
+      <div v-for="item in list" :key="item.id" class="goods__container__item" @click="goLink(item.id)">
+        <!-- <span class="goods__tag">{{ index + 1 }}</span> -->
+        <img class="goods__image" :src="item.fileList[0].fileUrl" />
+        <div class="goods__hits">
+          <span><img style="height: 16px" src="../../static/assets/images/eye__icon.svg" /><b>{{ item.readCount
+              }}</b></span>
+          <span><img style="height: 20px" src="../../static/assets/images/click__icon.svg" /><b>{{ item.clickCount
+              }}</b></span>
         </div>
-        <div>
-          <b>{{ item.brokerageRatio }}%</b><span>佣金比</span>
+        <div class="goods__name">{{ item.name }}</div>
+        <div class="shop__address">
+          <img style="height: 16px" src="../../static/assets/images/mall-f.svg" /> <span>{{ item.shopName.length > 10 ?
+            item.shopName.slice(0, 10) + '...' : item.shopName }}</span>
         </div>
-        <div>
-          <b>{{ item.brokerage.toFixed(2) }}</b><span>佣金</span>
+        <div class="goods__item__tag">
+          <div>
+            <b>{{ item.price.toFixed(2) }}</b><span>到手价</span>
+          </div>
+          <div>
+            <b>{{ item.brokerageRatio }}%</b><span>佣金比</span>
+          </div>
+          <div>
+            <b>{{ item.brokerage.toFixed(2) }}</b><span>佣金</span>
+          </div>
         </div>
       </div>
     </div>
@@ -43,21 +45,25 @@ export default {
 
 <style lang="less" scoped>
 .goods__container {
+  width: 1200px;
+}
+
+.goods__inner {
+  width: 1240px;
   overflow: hidden;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
 }
 
 .goods__container__item {
+  float: left;
   position: relative;
-  width: 227px;
+  width: 225px;
   border-radius: 10px;
   margin-bottom: 20px;
   background-color: #fff;
   overflow: hidden;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  margin-right: 18px;
 }
 
 .goods__tag {

@@ -110,18 +110,19 @@ export default {
     },
 
     toLinks(obj) {
-      const { advertisingType, advertisingAddr } = obj
-      if (advertisingType === 0) {
+      const { skipType, skipAddr } = obj
+      if (skipType === '0') {
         // 菜单
-        return routerType[advertisingAddr]
+        return routerType[skipAddr]
       } else {
         // 商品详情
-        return `/detail/${advertisingAddr}`
+        return `/detail/${skipAddr}`
       }
     }
   },
 
   mounted() {
+
     this.getSliderList()
     this.getGoodsList()
 

@@ -1,7 +1,7 @@
 <template>
   <div class="goods__container">
     <div class="goods__inner">
-      <div v-for="(item, index) in list" :key="item.id" class="goods__container__item">
+      <div v-for="(item, index) in list" :key="item.id" class="goods__container__item" @click="goDetail(item.id)">
         <span class="goods__tag">{{ index + 1 }}</span>
         <img class="goods__image" :src="item.fileList[0].fileUrl" />
         <div class="goods__hits">
@@ -30,75 +30,13 @@
 <script>
 export default {
   props: ['list'],
+  methods: {
+    goDetail(id) {
+      this.$router.push(`/detail/${id}`)
+    }
+  }
 }
-// const list = ref([
-//   {
-//     imgUrl:
-//       "https://img14.360buyimg.com/pop/jfs/t1/249370/33/11424/15034/666c1115Ff355f106/9aa531975c284072.jpg?imageMogr2/strip/format/jpg",
-//     name: "电视机纸巾盒轻奢塑料客厅茶几多功能收纳盒卫生间厕所桌面抽纸盒 樱花粉（1个装） 跨境爆款",
-//     price: "18.9",
-//     commissionRatio: "30%",
-//     commission: "5.67",
-//     preview: 234,
-//     hits: 213,
-//     id: 1234,
-//   },
-//   {
-//     imgUrl:
-//       "https://img14.360buyimg.com/pop/jfs/t1/177646/2/20026/404027/611cc8e6E7eca7b63/3acb56a1631eb55f.jpg?imageMogr2/strip/format/jpg",
-//     name: "电视机纸巾盒轻奢塑料客厅茶几多功能收纳盒卫生间厕所桌面抽纸盒 樱花粉（1个装） 跨境爆款",
-//     price: "18.9",
-//     commissionRatio: "30%",
-//     commission: "5.67",
-//     preview: 234,
-//     hits: 213,
-//     id: 2334,
-//   },
-//   {
-//     imgUrl:
-//       "https://img14.360buyimg.com/pop/jfs/t1/74140/22/26938/83168/66bdcd6eFaea1fe9a/f8de06990f108aef.jpg?imageMogr2/strip/format/jpg",
-//     name: "电视机纸巾盒轻奢塑料客厅茶几多功能收纳盒卫生间厕所桌面抽纸盒 樱花粉（1个装） 跨境爆款",
-//     price: "18.9",
-//     commissionRatio: "30%",
-//     commission: "5.67",
-//     preview: 234,
-//     hits: 213,
-//     id: 1232,
-//   },
-//   {
-//     imgUrl:
-//       "https://img14.360buyimg.com/pop/jfs/t1/249370/33/11424/15034/666c1115Ff355f106/9aa531975c284072.jpg?imageMogr2/strip/format/jpg",
-//     name: "电视机纸巾盒轻奢塑料客厅茶几多功能收纳盒卫生间厕所桌面抽纸盒 樱花粉（1个装） 跨境爆款",
-//     price: "18.9",
-//     commissionRatio: "30%",
-//     commission: "5.67",
-//     preview: 234,
-//     hits: 213,
-//     id: 3234,
-//   },
-//   {
-//     imgUrl:
-//       "https://img14.360buyimg.com/pop/jfs/t1/148330/23/37661/37509/65e534c0F3644c838/460cad9853d41cfd.jpg?imageMogr2/strip/format/jpg",
-//     name: "电视机纸巾盒轻奢塑料客厅茶几多功能收纳盒卫生间厕所桌面抽纸盒 樱花粉（1个装） 跨境爆款",
-//     price: "18.9",
-//     commissionRatio: "30%",
-//     commission: "5.67",
-//     preview: 234,
-//     hits: 213,
-//     id: 5634,
-//   },
-//   {
-//     imgUrl:
-//       "https://img14.360buyimg.com/pop/jfs/t1/232457/34/24532/338236/66ad99b5Fe05b9f3b/ca78359dff30bc3d.jpg?imageMogr2/strip/format/jpg",
-//     name: "电视机纸巾盒轻奢塑料客厅茶几多功能收纳盒卫生间厕所桌面抽纸盒 樱花粉（1个装） 跨境爆款",
-//     price: "18.9",
-//     commissionRatio: "30%",
-//     commission: "5.67",
-//     preview: 234,
-//     hits: 213,
-//     id: 1224,
-//   },
-// ]);
+
 </script>
 
 <style scoped>

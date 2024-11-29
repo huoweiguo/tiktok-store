@@ -1,5 +1,5 @@
 <template>
-  <div class="menu__container">
+  <div class="menu__container" :class="{ 'menu__news__container': show == false }">
     <div class="menu__content">
       <a class="menu__item" v-for="item in menuList" :key="item.id" :class="{ active: isCurrent(item.menuKey) }"
         @click="toLink(item.href)">{{ item.name }}</a>
@@ -11,18 +11,39 @@
 export default {
   data() {
     return {
+      show: true,
       menukey: {
         '0': '/',
         '1': '/sift',
         '2': '/explosive',
         '3': '/brand',
-        '-1': '/real'
+        '-1': '/real',
+        '4': '/news'
       },
       menuList: []
     }
   },
+  watch: {
+    '$route': {
+      handler(to) {
+        const { path } = to;
+        if (path === '/news' || path.includes('/newsDetail') || path === '/about') {
+          this.show = false;
+        } else {
+          this.show = true;
+        }
+      },
+      deep: true
+    }
+  },
   mounted() {
     this.getData()
+    const { path } = this.$route;
+    if (path === '/news' || path.includes('/newsDetail') || path === '/about') {
+      this.show = false;
+    } else {
+      this.show = true;
+    }
   },
   methods: {
     toLink(link) {
@@ -37,6 +58,8 @@ export default {
       } else if (menuKey === '2' && path === '/explosive') {
         return true
       } else if (menuKey === '3' && path === '/brand') {
+        return true
+      } else if (menuKey === '4' && (path === '/news' || path.includes('/newsDetail'))) {
         return true
       } else if (menuKey === '-1' && path === '/real') {
         return true
@@ -63,11 +86,29 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .menu__container {
   width: 100%;
   height: 56px;
   background-color: #363741;
+}
+
+.menu__news__container {
+  position: absolute;
+  left: 0;
+  top: 32px;
+  background-color: rgba(0, 0, 0, 0.25);
+
+  .menu__item {
+    color: #fff;
+  }
+
+  .menu__item:hover,
+  .menu__item.active {
+    background-color: transparent;
+    font-weight: bolder;
+    color: #aaa;
+  }
 }
 
 .menu__content {
