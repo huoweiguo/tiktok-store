@@ -77,8 +77,10 @@
           </div>
         </div>
         <div class="link_butt">
-          <button class="butt1">立即转链</button>
-          <button class="butt2">复制文案</button>
+          <a :href="goodsInfo.shopUrl" target="_blank">
+            <button class="butt1">立即转链</button>
+          </a>
+          <!-- <button class="butt2">复制文案</button> -->
         </div>
       </div>
       <div class="this_cut"></div>
