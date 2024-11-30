@@ -4,7 +4,7 @@
       <div class="bottom__content__left">
         <div class="bottom__inner__item">
           <h3>商品库</h3>
-          <ul>
+          <ul class="goods_bottom_ul">
             <li @click="links('/')">实时榜单</li>
             <li @click="links('/sift')">精选好货</li>
             <li @click="links('/explosive')">超级爆品</li>
@@ -12,12 +12,20 @@
           </ul>
         </div>
 
-        <div class="bottom__inner__item">
+        <!-- <div class="bottom__inner__item">
           <h3>帮助中心</h3>
           <ul>
             <li>常见问题</li>
             <li>导购相关</li>
             <li>意见反馈</li>
+          </ul>
+        </div> -->
+
+        <div class="bottom__inner__item">
+          <h3>其他</h3>
+          <ul>
+            <li @click="links('/news')">新闻中心</li>
+            <li @click="links('/brand')">品牌优选</li>
           </ul>
         </div>
 
@@ -37,7 +45,7 @@
       </div>
     </div>
     <div class="bottom__content__copyright">
-      Copyright © 2022-2023 深圳市某某科技有限公司 版权所有
+      Copyright © 2022-2024 替客拓客科技有限公司 版权所有
     </div>
   </div>
 </template>

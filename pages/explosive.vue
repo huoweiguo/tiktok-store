@@ -58,6 +58,9 @@
               </div>
             </div>
           </div>
+          <div class="page-box">
+            <Pagination :total-count="totalItems" :limit="params.pageSize" :get-by-page="getByPage" />
+          </div>
         </div>
         <div class="right">
           <div class="rbox" v-for="item in advList" :key="item.id">
@@ -70,14 +73,17 @@
 </template>
 
 <script>
+import Pagination from '@/components/Pagination'
 import { EventBus } from '@/utils/event-bus'
 import { routerType } from '@/utils/tools'
 export default {
+  components: { Pagination },
   data() {
     return {
       menuInfo: {},
       goodsList: [],
       advList: [],
+      totalItems: 0,
       params: {
         param: '',
         featrue: 2,
@@ -88,6 +94,27 @@ export default {
     }
   },
 
+  async asyncData({ $axios }) {
+    const res = await $axios.$post('/api/cargo/info/page', {
+      param: '',
+      featrue: 2,
+      type: '',
+      pageNum: 1,
+      pageSize: 20
+    })
+    if (res.code === 200) {
+      return {
+        goodsList: res.rows,
+        totalItems: res.total
+      }
+    }
+
+    return {
+      goodsList: [],
+      totalItems: 0
+    }
+  },
+
   methods: {
     getGoodsList() {
       this.$axios.post('/api/cargo/info/page', {
@@ -95,6 +122,7 @@ export default {
       }).then(res => {
         if (res.data.code === 200) {
           this.goodsList = res.data.rows || []
+          this.totalItems = res.data.total || 0
         }
       })
     },
@@ -140,10 +168,10 @@ export default {
   },
 
   mounted() {
-    this.getGoodsList()
     this.getMenuInfo()
     this.getAdvert()
     EventBus.$on('searchGoods', data => {
+      this.params.pageNum = 1
       this.params.param = data.param !== undefined ? data.param : this.params.param
       this.params.type = data.type !== undefined ? data.type : this.params.type
       this.params.salesType = data.salesType !== undefined ? data.salesType : this.params.salesType
@@ -355,5 +383,11 @@ export default {
       }
     }
   }
+}
+
+.page-box {
+  display: flex;
+  justify-content: center;
+  margin: 50px auto;
 }
 </style>

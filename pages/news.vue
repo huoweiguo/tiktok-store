@@ -16,17 +16,29 @@
           </li>
         </ul>
       </div>
+
+      <div class="page-box">
+        <Pagination :total-count="totalItems" :limit="params.pageSize" :get-by-page="getByPage" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Pagination from '@/components/Pagination'
 export default {
+  components: { Pagination },
   name: 'newsList',
   data() {
     return {
       newsList: [],
-      total: 0
+      totalItems: 0,
+      params: {
+        pageNum: 1,
+        pageSize: 10,
+        headline: '',
+        showFlag: 0
+      }
     }
   },
 
@@ -39,16 +51,37 @@ export default {
     });
 
     if (res.data.code === 200) {
-      return { newsList: res.data.rows, total: res.data.total }
+      return { newsList: res.data.rows, totalItems: res.data.total }
     }
 
-    return { newsList: [], total: 0 }
+    return { newsList: [], totalItems: 0 }
+  },
+
+  methods: {
+    getByPage(page) {
+      this.params.pageNum = page
+      this.getNewsList()
+    },
+
+    async getNewsList() {
+      const res = await this.$axios.post('/api/cargo/news/page', this.params);
+      if (res.data.code === 200) {
+        this.newsList = res.data.rows
+        this.totalItems = res.data.total
+      }
+    }
   }
 }
 </script>
 
 <style lang="less" scoped>
 .container__news {
+  .page-box {
+    display: flex;
+    justify-content: center;
+    margin: 50px auto;
+  }
+
   .banner__news {
     background: url('../static/assets/images/news_banner.jpg') no-repeat center;
     height: 450px;

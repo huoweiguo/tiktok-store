@@ -57,31 +57,17 @@
       </div>
 
       <div class="page-box">
-        <div>
-          <a href="javascript:;">&lt;</a>
-          <span class="curr">
-            <em class="em"></em>
-            <em>1</em>
-          </span>
-          <a href="javascript:;" data-page="2">2</a>
-          <a href="javascript:;" data-page="3">3</a>
-          <span class="spr">…</span>
-          <a href="javascript:;" class="last" title="尾页" data-page="8">8</a>
-          <a href="javascript:;" class="next" data-page="2">&gt;</a>
-          <span class="count">共 291 条</span>
-          <span class="skip">
-            到第<input type="text" min="1" />页
-            <button type="button" class="btn">确定</button>
-          </span>
-        </div>
+        <Pagination :total-count="totalItems" :limit="params.pageSize" :get-by-page="getByPage" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Pagination from '@/components/Pagination'
 import { EventBus } from '@/utils/event-bus'
 export default {
+  components: { Pagination },
   data() {
     return {
       params: {
@@ -91,12 +77,40 @@ export default {
         pageNum: 1,
         pageSize: 20
       },
+      totalItems: 0,
       menuInfo: {},
       currentIndex: '',
       goodsList: []
     }
   },
+
+  async asyncData({ $axios }) {
+    const res = await $axios.post('/api/cargo/info/page', {
+      param: '',
+      featrue: 3,
+      type: '',
+      pageNum: 1,
+      pageSize: 20
+    })
+
+    if (res.data.code === 200) {
+      return {
+        goodsList: res.data.rows,
+        totalItems: res.data.total
+      }
+    }
+    return {
+      goodsList: [],
+      totalItems: 0
+    }
+  },
+
   methods: {
+    getByPage(page) {
+      this.params.pageNum = page
+      this.getGoodsList()
+    },
+
     getGoodsList() {
       this.$axios.post('/api/cargo/info/page', {
         ...this.params
@@ -125,8 +139,8 @@ export default {
   },
   mounted() {
     this.getMenuInfo()
-    this.getGoodsList()
     EventBus.$on('searchGoods', data => {
+      this.params.pageNum = 1
       this.params.param = data.param !== undefined ? data.param : this.params.param
       this.params.type = data.type !== undefined ? data.type : this.params.type
       this.params.salesType = data.salesType !== undefined ? data.salesType : this.params.salesType
@@ -332,7 +346,8 @@ export default {
 }
 
 .page-box {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   margin: 50px auto;
 
   a,

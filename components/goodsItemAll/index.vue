@@ -3,7 +3,9 @@
     <div class="goods__inner">
       <div v-for="item in list" :key="item.id" class="goods__container__item" @click="goLink(item.id)">
         <!-- <span class="goods__tag">{{ index + 1 }}</span> -->
-        <img class="goods__image" :src="item.fileList[0].fileUrl" />
+        <template v-if="item.fileList?.length">
+          <img class="goods__image" :src="item.fileList[0].fileUrl" />
+        </template>
         <div class="goods__hits">
           <span><img style="height: 16px" src="../../static/assets/images/eye__icon.svg" /><b>{{ item.readCount
               }}</b></span>
@@ -12,18 +14,18 @@
         </div>
         <div class="goods__name">{{ item.name }}</div>
         <div class="shop__address">
-          <img style="height: 16px" src="../../static/assets/images/mall-f.svg" /> <span>{{ item.shopName.length > 10 ?
-            item.shopName.slice(0, 10) + '...' : item.shopName }}</span>
+          <img style="height: 16px" src="../../static/assets/images/mall-f.svg" /> <span>{{ item.shopName?.length > 10 ?
+            item.shopName?.slice(0, 10) + '...' : item.shopName }}</span>
         </div>
         <div class="goods__item__tag">
           <div>
-            <b>{{ item.price.toFixed(2) }}</b><span>到手价</span>
+            <b>{{ item.price?.toFixed(2) }}</b><span>到手价</span>
           </div>
           <div>
             <b>{{ item.brokerageRatio }}%</b><span>佣金比</span>
           </div>
           <div>
-            <b>{{ item.brokerage.toFixed(2) }}</b><span>佣金</span>
+            <b>{{ item.brokerage?.toFixed(2) }}</b><span>佣金</span>
           </div>
         </div>
       </div>

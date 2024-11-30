@@ -36,7 +36,7 @@ import { EventBus } from '@/utils/event-bus'
 export default {
   components: {
     Swiper,
-    SwiperSlide
+    SwiperSlide,
   },
   data() {
     return {
@@ -127,6 +127,7 @@ export default {
     this.getGoodsList()
 
     EventBus.$on('searchGoods', data => {
+      this.params.pageNum = 1
       this.params.param = data.param !== undefined ? data.param : this.params.param
       this.params.type = data.type !== undefined ? data.type : this.params.type
       this.params.salesType = data.salesType !== undefined ? data.salesType : this.params.salesType

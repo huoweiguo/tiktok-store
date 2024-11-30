@@ -41,3 +41,6 @@ button{
   text-align: center;
   color: #999;
 }
+.swiper-slide {
+  margin: 0 5px;
+}

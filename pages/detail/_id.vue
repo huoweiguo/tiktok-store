@@ -3,14 +3,16 @@
     <div class="container bg">
       <div class="goods-box">
         <div class="goods-img">
-          <swiper ref="swiper1" class="swiper1" v-if="goodsInfo.fileList?.length > 0" :options="swiperOptionThumbs">
-            <swiper-slide v-for="(item, index) in goodsInfo.fileList" :key="index">
-              <img class="swiper__img" :src="item.fileUrl" :alt="item.name" />
-            </swiper-slide>
-            <div slot="pagination" class="swiper-pagination"></div>
-            <div slot="button-next" class="swiper-button-next swiper-button-white"></div>
-            <div slot="button-prev" class="swiper-button-prev swiper-button-white"></div>
-          </swiper>
+          <div style="height: 240px; margin-bottom: 20px; display: flex; justify-content: center; align-items: center;">
+            <swiper ref="swiper1" class="swiper1" v-if="goodsInfo.fileList?.length > 0" :options="swiperOptionThumbs">
+              <swiper-slide v-for="(item, index) in goodsInfo.fileList" :key="index">
+                <img class="swiper__img" :src="item.fileUrl" :alt="item.name" />
+              </swiper-slide>
+              <!-- <div slot="pagination" class="swiper-pagination"></div> -->
+              <div slot="button-next" class="swiper-button-next swiper-button-white"></div>
+              <div slot="button-prev" class="swiper-button-prev swiper-button-white"></div>
+            </swiper>
+          </div>
           <swiper ref="swiper2" class="swiper2" v-if="goodsInfo.fileList?.length > 0" :options="swiperOptionThumbs2">
             <swiper-slide v-for="(item, index) in goodsInfo.fileList" :key="index">
               <img class="swiper__img" :src="item.fileUrl" :alt="item.name" />
@@ -178,7 +180,7 @@ export default {
 
   head() {
     return {
-      title: this.goodsInfo.name || '商品详情'
+      title: `商品详情_${this.goodsInfo.name}` || '商品详情'
     }
   },
 
@@ -219,7 +221,7 @@ export default {
   .swiper__img {
     display: block;
     max-width: 100%;
-    max-height: 300px;
+    max-height: 240px;
     margin: 0 auto;
   }
 }
@@ -247,7 +249,7 @@ export default {
   padding: 30px;
 
   .goods-img {
-    width: 400px;
+    width: 300px;
 
     .swiper-button-prev,
     .swiper-button-next {
