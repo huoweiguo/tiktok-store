@@ -116,27 +116,29 @@
         </div>
       </div>
     </div> -->
-    <!-- <div class="container">
+    <div class="container">
       <div class="jingpin-box">
         <div class="title">
-          <b>精品推荐</b>
-          <div>为你推荐优质好货</div>
+          <b>{{ name }}</b>
+          <div>{{ descName }}</div>
         </div>
         <div class="list-box">
-          <goodsItem />
+          <goodsItemAll :list="goodsList" />
         </div>
       </div>
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script>
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
+import goodsItemAll from "@/components/goodsItemAll";
 import "swiper/css/swiper.css";
 export default {
   components: {
     Swiper,
-    SwiperSlide
+    SwiperSlide,
+    goodsItemAll
   },
 
   data() {
@@ -175,6 +177,9 @@ export default {
           }
         }
       },
+      descName: '',
+      name: '',
+      goodsList: []
     }
   },
 
@@ -201,6 +206,29 @@ export default {
     onChangeSwiper2() {
       this.$refs.swiper1.$swiper.slideTo(this.$refs.swiper2.$swiper.activeIndex, 1000, false)
     },
+  },
+
+  mounted() {
+    // 推荐列表
+    this.$axios.$post('/api/cargo/boutique/cargoPage', {
+      name: '',
+      pageNum: 0,
+      pageSize: -1
+    }).then(res => {
+      if (res.code === 200) {
+        this.goodsList = res.rows || []
+      }
+    })
+
+
+    // 推荐信息
+    this.$axios.$get('/api/cargo/boutique/detail').then(res => {
+      if (res.code === 200) {
+        this.descName = res.data.descName
+        this.name = res.data.name
+      }
+    })
+
   }
 }
 </script>
