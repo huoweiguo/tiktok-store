@@ -78,7 +78,8 @@ export default {
         featrue: 1,
         type: '',
         pageNum: 1,
-        pageSize: 10
+        pageSize: 10,
+        wipeImageInfo: 1
       },
       menuInfo: {},
       currentIndex: '',
@@ -94,7 +95,8 @@ export default {
       featrue: 1,
       type: '',
       pageNum: 1,
-      pageSize: 10
+      pageSize: 10,
+      wipeImageInfo: 1
     })
 
     if (res.code === 200) {

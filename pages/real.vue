@@ -34,7 +34,8 @@ export default {
         featrue: -1,
         type: '',
         pageNum: 1,
-        pageSize: 20
+        pageSize: 20,
+        wipeImageInfo: 1
       },
       totalItems: 0,
       currentIndex: '',
@@ -49,7 +50,8 @@ export default {
       featrue: -1,
       type: '',
       pageNum: 1,
-      pageSize: 20
+      pageSize: 20,
+      wipeImageInfo: 1
     })
     if (res.code === 200) {
       return {

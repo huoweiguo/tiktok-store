@@ -8,10 +8,7 @@
           </div>
         </div>
         <div class="slide-item" v-for="(item, index) in smallMenu" :key="index">
-          <div
-            :class="{ isCollect: params.type == item.id }"
-            @click="changeCid(item.id)"
-          >
+          <div :class="{ isCollect: params.type == item.id }" @click="changeCid(item.id)">
             {{ item.name }}
           </div>
         </div>
@@ -61,6 +58,7 @@ export default {
         type: "",
         pageNum: 1,
         pageSize: 100,
+        wipeImageInfo: 1
       },
     };
 
@@ -122,7 +120,7 @@ export default {
       flex: 0 0 auto;
       padding: 10px;
 
-      & > div {
+      &>div {
         padding: 5px 0;
         // border-bottom: 2px solid #4A9BF7;
 

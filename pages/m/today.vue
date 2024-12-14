@@ -53,6 +53,7 @@ export default {
         type: "",
         pageNum: 1,
         pageSize: 20,
+        wipeImageInfo: 1
       },
     };
 

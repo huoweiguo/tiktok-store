@@ -2,40 +2,23 @@
   <div>
     <div class="top">
       <div class="go_back" @click="goBack">
-        <img
-          src="https://www.jingtuitui.com/static/home/mobile/img/go_back.png"
-        />
+        <img src="https://www.jingtuitui.com/static/home/mobile/img/go_back.png" />
       </div>
       <div class="go_home" @click="goHome">
-        <img
-          src="https://www.jingtuitui.com/static/home/mobile/img/go_home.png"
-        />
+        <img src="https://www.jingtuitui.com/static/home/mobile/img/go_home.png" />
       </div>
     </div>
 
     <!--  -->
     <div class="this_goods">
       <div class="banner">
-        <swiper
-          ref="swiperThumbs"
-          class="swiper gallery-thumbs"
-          :options="swiperOptionThumbs"
-        >
-          <swiper-slide
-            v-for="(item, index) in goodsInfo.fileList"
-            :key="index"
-          >
+        <swiper ref="swiperThumbs" class="swiper gallery-thumbs" :options="swiperOptionThumbs">
+          <swiper-slide v-for="(item, index) in goodsInfo.fileList" :key="index">
             <img class="swiper__img" :src="item.fileUrl" :alt="item.name" />
           </swiper-slide>
           <div slot="pagination" class="swiper-pagination"></div>
-          <div
-            slot="button-next"
-            class="swiper-button-next swiper-button-white"
-          ></div>
-          <div
-            slot="button-prev"
-            class="swiper-button-prev swiper-button-white"
-          ></div>
+          <div slot="button-next" class="swiper-button-next swiper-button-white"></div>
+          <div slot="button-prev" class="swiper-button-prev swiper-button-white"></div>
         </swiper>
       </div>
       <div class="this_kind">
@@ -90,9 +73,7 @@
     <div class="goods-box">
       <div class="goods_cut">
         <div class="cut_img">
-          <img
-            src="https://www.jingtuitui.com/static/home/mobile/img/cut_img.png"
-          />
+          <img src="https://www.jingtuitui.com/static/home/mobile/img/cut_img.png" />
         </div>
         <div class="cut_tit">领券秒杀精选</div>
       </div>
@@ -147,6 +128,7 @@ export default {
         type: "",
         pageNum: 1,
         pageSize: 20,
+        wipeImageInfo: 1
       },
     };
 

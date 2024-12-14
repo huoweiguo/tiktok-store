@@ -75,7 +75,8 @@ export default {
         featrue: 3,
         type: '',
         pageNum: 1,
-        pageSize: 20
+        pageSize: 20,
+        wipeImageInfo: 1
       },
       totalItems: 0,
       menuInfo: {},
@@ -90,7 +91,8 @@ export default {
       featrue: 3,
       type: '',
       pageNum: 1,
-      pageSize: 20
+      pageSize: 20,
+      wipeImageInfo: 1
     })
 
     if (res.data.code === 200) {

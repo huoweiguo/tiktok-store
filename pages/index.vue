@@ -64,7 +64,8 @@ export default {
         salesType: 0,
         type: '',
         pageNum: 1,
-        pageSize: 100
+        pageSize: 100,
+        wipeImageInfo: 1
       },
       goodsList: []
     }
@@ -77,7 +78,8 @@ export default {
       salesType: 0,
       type: '',
       pageNum: 1,
-      pageSize: 100
+      pageSize: 100,
+      wipeImageInfo: 1
     })
     if (ret.code === 200) {
       return { goodsList: ret.rows || [] }

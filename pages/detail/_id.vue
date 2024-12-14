@@ -213,7 +213,8 @@ export default {
     this.$axios.$post('/api/cargo/boutique/cargoPage', {
       name: '',
       pageNum: 0,
-      pageSize: -1
+      pageSize: -1,
+      wipeImageInfo: 1
     }).then(res => {
       if (res.code === 200) {
         this.goodsList = res.rows || []
