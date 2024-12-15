@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="top">
-      <a class="on" href="##">今日销量</a>
-      <a href="##">推广排行榜</a>
+      <a class="on" href="/m/today">今日销量</a>
     </div>
 
     <div class="goods-list">
@@ -53,7 +52,7 @@ export default {
         type: "",
         pageNum: 1,
         pageSize: 20,
-        wipeImageInfo: 1
+        wipeImageInfo: 1,
       },
     };
 

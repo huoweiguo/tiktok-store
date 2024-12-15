@@ -8,7 +8,10 @@
           </div>
         </div>
         <div class="slide-item" v-for="(item, index) in smallMenu" :key="index">
-          <div :class="{ isCollect: params.type == item.id }" @click="changeCid(item.id)">
+          <div
+            :class="{ isCollect: params.type == item.id }"
+            @click="changeCid(item.id)"
+          >
             {{ item.name }}
           </div>
         </div>
@@ -17,7 +20,7 @@
 
     <div class="goods_list">
       <div class="goods_mod" v-for="(item, index) in goodsList" :key="index">
-        <a href="/m/goods">
+        <a :href="`/m/goods/?id=${item.id}`">
           <div class="goods_photo">
             <img :src="item.fileList[0].fileUrl" />
           </div>
@@ -58,7 +61,7 @@ export default {
         type: "",
         pageNum: 1,
         pageSize: 100,
-        wipeImageInfo: 1
+        wipeImageInfo: 1,
       },
     };
 
@@ -120,7 +123,7 @@ export default {
       flex: 0 0 auto;
       padding: 10px;
 
-      &>div {
+      & > div {
         padding: 5px 0;
         // border-bottom: 2px solid #4A9BF7;
 
@@ -149,13 +152,16 @@ export default {
     }
 
     .goods_photo {
-      width: 142px;
+      width: 122px;
 
       img {
         display: block;
         width: 100%;
         height: 100%;
       }
+    }
+    .goods_right {
+      flex: 1;
     }
 
     .goods_show {

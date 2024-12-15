@@ -62,7 +62,7 @@
       </div>
       <div class="this_cut"></div>
       <div class="link">
-        <div id="goods_content">
+        <!-- <div id="goods_content">
           <div class="link_photo">
             <img :src="goodsInfo.fileList[0].fileUrl" />
           </div>
@@ -75,7 +75,7 @@
             </a>
             <p></p>
           </div>
-        </div>
+        </div> -->
         <div class="link_butt">
           <a :href="goodsInfo.shopUrl" target="_blank">
             <button class="butt1">立即转链</button>
@@ -279,7 +279,6 @@ export default {
 .this_cut {
   width: 100%;
   height: 10px;
-  float: left;
   background: #f5f5f5;
 }
 
@@ -296,10 +295,6 @@ export default {
       width: 100%;
       height: 100%;
     }
-  }
-
-  .link_butt {
-    margin-top: 30px;
   }
 }
 
@@ -352,6 +347,7 @@ export default {
       display: -webkit-box;
       -webkit-line-clamp: 2;
       -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .time_goods_price {
