@@ -17,11 +17,7 @@
       >
         <swiper-slide v-for="(item, index) in sliderArr" :key="index">
           <a @click="goLink(item)">
-            <img
-              class="swiper__img"
-              :src="item.advertisingUrl"
-              :alt="item.name"
-            />
+            <img class="swiper__img" :src="item.fileUrl" :alt="item.name" />
           </a>
         </swiper-slide>
         <div slot="pagination" class="swiper-pagination"></div>
@@ -146,7 +142,7 @@ export default {
   methods: {
     getSliderList() {
       this.$axios
-        .$post("/api/CargoAdvertising/page", {
+        .$post("/api/cargo/slideshow/page", {
           advertisingFlag: 0,
           pageNum: 0,
           pageSize: -1,
@@ -201,8 +197,9 @@ export default {
 
 <style lang="less" scoped>
 .swiper__img {
+  // 宽高比不变
   width: 100%;
-  height: 200px;
+  object-fit: cover;
 }
 .head {
   display: flex;
@@ -241,16 +238,22 @@ export default {
   ul {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
   }
 
   .kind_box {
-    width: 53px;
+    text-align: center;
+    width: 20%;
+    margin-bottom: 20px;
 
     a {
-      display: block;
+      display: inline-block;
       text-align: center;
       color: #333;
+    }
+
+    .kind_photo {
+      border-radius: 100px;
+      overflow: hidden;
     }
 
     .kind_name {
