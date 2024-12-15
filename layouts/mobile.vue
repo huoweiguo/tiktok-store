@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  data() { },
+  data() {},
   head() {
     return {
       meta: [
@@ -23,7 +23,7 @@ export default {
 
 <style lang="less">
 body {
-  width: 100%;
-  min-width: 100%;
+  width: 100% !important;
+  min-width: 100% !important;
 }
 </style>

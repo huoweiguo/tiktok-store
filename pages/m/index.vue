@@ -10,15 +10,29 @@
 
     <!--  -->
     <div class="swiper-box">
-      <swiper ref="swiperThumbs" class="swiper gallery-thumbs" :options="swiperOptionThumbs">
+      <swiper
+        ref="swiperThumbs"
+        class="swiper gallery-thumbs"
+        :options="swiperOptionThumbs"
+      >
         <swiper-slide v-for="(item, index) in sliderArr" :key="index">
           <a @click="goLink(item)">
-            <img class="swiper__img" :src="item.advertisingUrl" :alt="item.name" />
+            <img
+              class="swiper__img"
+              :src="item.advertisingUrl"
+              :alt="item.name"
+            />
           </a>
         </swiper-slide>
         <div slot="pagination" class="swiper-pagination"></div>
-        <div slot="button-next" class="swiper-button-next swiper-button-white"></div>
-        <div slot="button-prev" class="swiper-button-prev swiper-button-white"></div>
+        <div
+          slot="button-next"
+          class="swiper-button-next swiper-button-white"
+        ></div>
+        <div
+          slot="button-prev"
+          class="swiper-button-prev swiper-button-white"
+        ></div>
       </swiper>
     </div>
 
@@ -40,13 +54,17 @@
     <div class="cut_box">
       <div class="cut_newgoods">
         <div class="cut_icon">
-          <img src="https://www.jingtuitui.com/static/home/mobile/img/icon1.png" />
+          <img
+            src="https://www.jingtuitui.com/static/home/mobile/img/icon1.png"
+          />
         </div>
 
         新品推荐
 
         <div class="cut_icon">
-          <img src="https://www.jingtuitui.com/static/home/mobile/img/icon2.png" />
+          <img
+            src="https://www.jingtuitui.com/static/home/mobile/img/icon2.png"
+          />
         </div>
       </div>
     </div>
@@ -96,13 +114,15 @@ export default {
       sliderArr: [],
       swiperOptionThumbs: {
         loop: true,
-        loopedSlides: 5,
-        spaceBetween: 10,
         centeredSlides: true,
         slidesPerView: "auto",
         pagination: {
           el: ".swiper-pagination",
           clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
         },
       },
       smallMenu: [],
@@ -114,7 +134,7 @@ export default {
         type: "",
         pageNum: 1,
         pageSize: 100,
-        wipeImageInfo: 1
+        wipeImageInfo: 1,
       },
     };
   },
