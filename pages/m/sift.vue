@@ -18,7 +18,7 @@
       </div>
     </div>
 
-    <div class="goods_list">
+    <div class="goods_list" id="goods_list-scroll">
       <div class="goods_mod" v-for="(item, index) in goodsList" :key="index">
         <a :href="`/m/goods/?id=${item.id}`">
           <div class="goods_photo">
@@ -40,6 +40,28 @@
           </div>
         </a>
       </div>
+      <div
+        v-if="loading"
+        style="
+          padding: 20px;
+          font-weight: 12px;
+          color: #999;
+          text-align: center;
+        "
+      >
+        加载中...
+      </div>
+      <div
+        v-if="!ismore"
+        style="
+          padding: 20px;
+          font-weight: 12px;
+          color: #999;
+          text-align: center;
+        "
+      >
+        没有更多了
+      </div>
     </div>
 
     <!-- footer -->
@@ -60,7 +82,7 @@ export default {
         salesType: 0,
         type: "",
         pageNum: 1,
-        pageSize: 100,
+        pageSize: 20,
         wipeImageInfo: 1,
       },
     };
@@ -90,21 +112,57 @@ export default {
 
     return data;
   },
+  data() {
+    return {
+      loading: false,
+      ismore: true,
+    };
+  },
+  mounted() {
+    let timeid = "";
+    this.$nextTick(() => {
+      // 滚动到底部加载更多
+      const goodsListScroll = document.getElementById("goods_list-scroll");
+      goodsListScroll.addEventListener("scroll", () => {
+        clearTimeout(timeid);
+        timeid = setTimeout(() => {
+          if (
+            goodsListScroll.scrollTop + goodsListScroll.clientHeight >=
+            goodsListScroll.scrollHeight - 50
+          ) {
+            console.log("滚动到底部");
+            if (!this.loading && this.ismore) {
+              this.params.pageNum++;
+              this.getGoodsList();
+            }
+          }
+        }, 500);
+      });
+    });
+  },
   methods: {
     getGoodsList() {
+      this.loading = true;
       this.$axios
         .post("/api/cargo/info/page", {
           ...this.params,
         })
         .then((res) => {
+          this.loading = false;
           if (res.data.code === 200) {
-            this.goodsList = res.data.rows || [];
+            const list = res.data.rows || [];
+            this.goodsList.push(...list);
+            if (list.length < 1) {
+              this.ismore = false;
+            }
           }
         });
     },
     changeCid(id) {
       this.params.type = id;
       this.params.pageNum = 1;
+      this.goodsList = [];
+      this.ismore = true;
       this.getGoodsList();
     },
   },
@@ -113,7 +171,7 @@ export default {
 
 <style lang="less" scoped>
 .choice_kind {
-  overflow: auto;
+  overflow-x: auto;
 
   .slide-box {
     display: flex;
@@ -137,7 +195,9 @@ export default {
 }
 
 .goods_list {
-  margin: 10px;
+  padding: 10px;
+  height: calc(100vh - 102px);
+  overflow-y: auto;
 
   .goods_mod {
     margin-bottom: 10px;

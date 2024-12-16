@@ -9,14 +9,14 @@
     </div>
 
     <!--  -->
-    <div class="swiper-box">
+    <div class="swiper-box" v-if="sliderArr.length > 0">
       <swiper
         ref="swiperThumbs"
         class="swiper gallery-thumbs"
         :options="swiperOptionThumbs"
       >
         <swiper-slide v-for="(item, index) in sliderArr" :key="index">
-          <a @click="goLink(item)">
+          <a :href="goLink(item)">
             <img class="swiper__img" :src="item.fileUrl" :alt="item.name" />
           </a>
         </swiper-slide>
@@ -154,13 +154,13 @@ export default {
         });
     },
     goLink(obj) {
-      const { advertisingType, advertisingAddr } = obj;
-      if (advertisingType === 0) {
+      const { skipType, skipAddr } = obj;
+      if (skipType === "0") {
         // 菜单
-        this.$router.push(routerType[advertisingAddr]);
+        return routerType[skipAddr];
       } else {
         // 商品详情
-        this.$router.push(`/m/detail/${advertisingAddr}`);
+        return `/m/goods/?id=${skipAddr}`;
       }
     },
     getClassifyList() {
@@ -204,27 +204,32 @@ export default {
 .head {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin: 0 auto;
   height: 50px;
   background: #4a9bf7;
-  text-align: center;
   font-size: 22px;
 }
 
-.seatch input {
-  width: 270px;
-  height: 30px;
-  border-radius: 17px;
-  background: #fff;
-  margin-left: 17px;
+.seatch {
+  flex: 1;
+  input {
+    width: 100%;
+    height: 30px;
+    border-radius: 17px;
+    background: #fff;
+    margin-left: 17px;
+  }
 }
 
 .seatch_butt {
-  width: 80px;
   height: 33px;
+  padding: 0 20px;
+  margin-left: 15px;
   line-height: 33px;
   color: #fff;
   font-size: 16px;
+  text-align: center;
 }
 
 .kind {
