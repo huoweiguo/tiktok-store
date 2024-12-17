@@ -1,5 +1,23 @@
 <template>
   <div>
+    <div class="choice_kind">
+      <div class="slide-box">
+        <div class="slide-item">
+          <div :class="{ isCollect: params.type == '' }" @click="changeCid('')">
+            全部商品
+          </div>
+        </div>
+        <div class="slide-item" v-for="(item, index) in smallMenu" :key="index">
+          <div
+            :class="{ isCollect: params.type == item.id }"
+            @click="changeCid(item.id)"
+          >
+            {{ item.name }}
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="goods_list" id="goods_list-scroll">
       <div class="goods_mod" v-for="(item, index) in goodsList" :key="index">
         <a :href="`/m/goods/?id=${item.id}`">
@@ -176,7 +194,7 @@ export default {
 
 .goods_list {
   padding: 10px;
-  height: calc(100vh - 52px);
+  height: calc(100vh - 102px);
   overflow-y: auto;
 
   .goods_mod {
