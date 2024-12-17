@@ -78,8 +78,7 @@ export default {
       goodsList: [],
       params: {
         param: "",
-        featrue: 0,
-        salesType: 0,
+        featrue: 1,
         type: "",
         pageNum: 1,
         pageSize: 20,
