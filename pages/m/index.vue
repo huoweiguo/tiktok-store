@@ -124,10 +124,7 @@ export default {
       smallMenu: [],
       goodsList: [],
       params: {
-        param: "",
-        featrue: 0,
-        salesType: 0,
-        type: "",
+        name: "",
         pageNum: 1,
         pageSize: 100,
         wipeImageInfo: 1,
@@ -182,7 +179,7 @@ export default {
     },
     getGoodsList() {
       this.$axios
-        .post("/api/cargo/info/page", {
+        .post("/api/cargo/boutique/cargoPage", {
           ...this.params,
         })
         .then((res) => {
